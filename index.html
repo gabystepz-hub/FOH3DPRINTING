@@ -100,16 +100,24 @@ img{max-width:100%;display:block}
 #bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.2s var(--ease)}
 #bg-canvas.ready{opacity:.9}
 
-/* ---------- Loader ---------- */
-#loader{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px}
-#loader .blueprint{position:absolute;inset:0;opacity:.18;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:42px 42px;mask-image:radial-gradient(circle at 50% 50%,#000 0%,transparent 72%);-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 0%,transparent 72%)}
-.loader-logo{position:relative;width:min(46vw,360px);filter:invert(1);opacity:0;transform:translateY(8px) scale(.98);clip-path:inset(0 0 100% 0)}
-.loader-scan{position:absolute;left:-6%;width:112%;height:2px;top:0;background:linear-gradient(90deg,transparent,var(--red),transparent);box-shadow:0 0 18px 2px var(--red);opacity:0}
-.loader-meta{position:relative;display:flex;align-items:center;gap:14px;font-family:var(--font-display);font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--muted)}
-.loader-bar{position:relative;width:200px;height:1px;background:rgba(255,255,255,.12);overflow:hidden}
-.loader-bar span{position:absolute;inset:0;width:0;background:var(--red);box-shadow:0 0 12px var(--red)}
-.loader-pct{font-variant-numeric:tabular-nums;color:var(--text);min-width:42px}
-#loader.done{opacity:0;visibility:hidden;transition:opacity .8s var(--ease),visibility .8s}
+/* ---------- Cinematic Intro ---------- */
+#intro{position:fixed;inset:0;z-index:1000;background:#000;overflow:hidden}
+#intro video{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .8s var(--ease)}
+#intro video.active{opacity:1}
+#introLogo{object-fit:contain}
+#introFilm{object-fit:cover;transform:scale(1.04)}
+#intro .vignette{position:absolute;inset:0;pointer-events:none;z-index:4;background:radial-gradient(120% 100% at 50% 50%,transparent 52%,rgba(0,0,0,.55))}
+#intro .grain{position:absolute;inset:0;pointer-events:none;z-index:4;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.intro-prog{position:absolute;left:0;top:0;height:2px;width:0;background:var(--red);box-shadow:0 0 12px var(--red);z-index:6;transition:width .15s linear}
+.intro-corner{position:absolute;top:26px;left:26px;z-index:6;height:18px;filter:invert(1);opacity:0;transition:opacity .8s var(--ease)}
+.intro-corner.show{opacity:.85}
+.intro-ui{position:absolute;left:0;right:0;bottom:32px;display:flex;align-items:center;justify-content:center;gap:18px;z-index:6;opacity:0;transition:opacity .6s var(--ease)}
+.intro-ui.show{opacity:1}
+.intro-skip,.intro-enter{font-family:var(--font-display);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:11px 20px;border-radius:100px;cursor:pointer;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);transition:all .3s var(--ease)}
+.intro-skip:hover,.intro-enter:hover{color:#fff;border-color:var(--red);background:rgba(225,6,0,.14)}
+.intro-enter{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7;font-size:13px;padding:18px 34px;color:#fff;opacity:0;pointer-events:none}
+.intro-enter.show{opacity:1;pointer-events:auto}
+#intro.done{opacity:0;visibility:hidden;transition:opacity 1s var(--ease),visibility 1s}
 
 /* ---------- Sound prompt ---------- */
 #sound-prompt{position:fixed;z-index:900;right:26px;bottom:26px;display:flex;align-items:center;gap:12px;padding:13px 18px;border:1px solid var(--line);border-radius:100px;background:rgba(10,10,12,.6);backdrop-filter:blur(14px);font-family:var(--font-display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease),border-color .3s,background .3s}
@@ -238,17 +246,21 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
 <!-- Three.js background -->
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-<!-- ============ LOADER ============ -->
-<div id="loader">
-  <div class="blueprint"></div>
-  <div style="position:relative;display:flex;align-items:center;justify-content:center">
-    <img class="loader-logo" src="FOH3D PRINTING LOGO.png" alt="FOH 3D Printing" />
-    <div class="loader-scan"></div>
-  </div>
-  <div class="loader-meta">
-    <span>Initializing</span>
-    <div class="loader-bar"><span></span></div>
-    <span class="loader-pct">0%</span>
+<!-- ============ CINEMATIC INTRO ============ -->
+<div id="intro">
+  <video id="introLogo" muted playsinline preload="auto">
+    <source src="logo-intro.mp4" type="video/mp4" />
+  </video>
+  <video id="introFilm" muted playsinline preload="auto" poster="poster.jpg">
+    <source src="FOH3D_LV1_Web_Intro_RED_4K_muted-loop.mp4" type="video/mp4" />
+  </video>
+  <div class="grain"></div>
+  <div class="vignette"></div>
+  <img class="intro-corner" src="FOH3D PRINTING LOGO.png" alt="" aria-hidden="true" />
+  <div class="intro-prog"></div>
+  <button class="intro-enter" aria-label="Enter experience">Enter</button>
+  <div class="intro-ui">
+    <button class="intro-skip" aria-label="Skip intro">Skip Intro</button>
   </div>
 </div>
 
@@ -530,27 +542,62 @@ function initThree(){
 }
 
 /* =========================================================
-   LOADER
+   CINEMATIC INTRO — logo build -> spectacular film -> reveal
    ========================================================= */
-function runLoader(done){
-  const loader=document.getElementById('loader');
-  const bar=loader.querySelector('.loader-bar span');
-  const pct=loader.querySelector('.loader-pct');
-  const logo=loader.querySelector('.loader-logo');
-  const scan=loader.querySelector('.loader-scan');
-  if(reduceMotion){ loader.classList.add('done'); done(); return; }
+function runIntro(done){
+  const intro=document.getElementById('intro');
+  const vLogo=document.getElementById('introLogo');
+  const vFilm=document.getElementById('introFilm');
+  const prog=intro.querySelector('.intro-prog');
+  const ui=intro.querySelector('.intro-ui');
+  const corner=intro.querySelector('.intro-corner');
+  const enterBtn=intro.querySelector('.intro-enter');
+  const skipBtn=intro.querySelector('.intro-skip');
+  const LOGO_SHARE=.28; // portion of progress bar for phase 1
 
-  const tl=gsap.timeline({onComplete:()=>{ loader.classList.add('done'); done(); }});
-  tl.to(scan,{opacity:1,duration:.2})
-    .to(scan,{top:'100%',duration:1.1,ease:'power2.inOut'},'<')
-    .to(logo,{opacity:1,clipPath:'inset(0 0 0% 0)',y:0,scale:1,duration:1.1,ease:'power2.out'},'<.1')
-    .to(scan,{opacity:0,duration:.3},'-=.2');
+  let finished=false, safety=null;
+  function finish(){
+    if(finished) return; finished=true;
+    clearTimeout(safety);
+    try{ vLogo.pause(); vFilm.pause(); }catch(e){}
+    intro.classList.add('done');
+    setTimeout(done,950);
+  }
+  skipBtn.addEventListener('click',finish);
 
-  let p={v:0};
-  gsap.to(p,{v:100,duration:2.2,ease:'power1.inOut',onUpdate:()=>{
-    const v=Math.round(p.v); bar.style.width=v+'%'; pct.textContent=v+'%';
-  }});
-  tl.to({},{duration:.4});
+  if(reduceMotion){ finish(); return; }
+
+  const setProg=p=>{ prog.style.width=Math.min(p*100,100)+'%'; };
+
+  // Phase 2 — spectacular film
+  function playFilm(){
+    vLogo.classList.remove('active');
+    vFilm.classList.add('active');
+    const p=vFilm.play(); if(p&&p.catch) p.catch(()=>{});
+  }
+  vFilm.addEventListener('timeupdate',()=>{
+    if(vFilm.duration) setProg(LOGO_SHARE+(vFilm.currentTime/vFilm.duration)*(1-LOGO_SHARE));
+  });
+  vFilm.addEventListener('ended',finish);
+
+  // Phase 1 — logo build
+  vLogo.addEventListener('timeupdate',()=>{
+    if(vLogo.duration) setProg((vLogo.currentTime/vLogo.duration)*LOGO_SHARE);
+  });
+  vLogo.addEventListener('ended',playFilm);
+
+  function startLogo(){
+    vLogo.classList.add('active');
+    const p=vLogo.play();
+    if(p&&p.catch) p.catch(()=>enterBtn.classList.add('show')); // autoplay blocked
+  }
+  enterBtn.addEventListener('click',()=>{ enterBtn.classList.remove('show'); startLogo(); });
+
+  // UI reveal + hard safety timeout
+  setTimeout(()=>{ ui.classList.add('show'); corner.classList.add('show'); },1400);
+  safety=setTimeout(finish,30000);
+
+  startLogo();
 }
 
 /* =========================================================
@@ -656,7 +703,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 document.documentElement.classList.remove('no-js');
 window.addEventListener('load',()=>{
   initThree();
-  runLoader(()=>{
+  runIntro(()=>{
     initAnimations();
     initLenis();
     setTimeout(()=>soundBtn.classList.add('show'),600);
