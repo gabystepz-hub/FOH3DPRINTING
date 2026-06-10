@@ -102,10 +102,10 @@ img{max-width:100%;display:block}
 
 /* ---------- Cinematic Intro ---------- */
 #intro{position:fixed;inset:0;z-index:1000;background:#000;overflow:hidden}
-#intro video{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .8s var(--ease)}
-#intro video.active{opacity:1}
-#introLogo{object-fit:contain}
-#introFilm{object-fit:cover;transform:scale(1.04)}
+#intro-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.intro-fallback{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(60vw,520px);filter:drop-shadow(0 0 42px rgba(225,6,0,.55));opacity:0;display:none}
+#intro.fallback .intro-fallback{display:block;animation:introFade 1.3s var(--ease) forwards}
+@keyframes introFade{0%{opacity:0;transform:translate(-50%,-50%) scale(.96)}40%{opacity:1}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 #intro .vignette{position:absolute;inset:0;pointer-events:none;z-index:4;background:radial-gradient(120% 100% at 50% 50%,transparent 52%,rgba(0,0,0,.55))}
 #intro .grain{position:absolute;inset:0;pointer-events:none;z-index:4;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .intro-prog{position:absolute;left:0;top:0;height:2px;width:0;background:var(--red);box-shadow:0 0 12px var(--red);z-index:6;transition:width .15s linear}
@@ -120,7 +120,7 @@ img{max-width:100%;display:block}
 #intro.done{opacity:0;visibility:hidden;transition:opacity 1s var(--ease),visibility 1s}
 
 /* ---------- Sound prompt ---------- */
-#sound-prompt{position:fixed;z-index:900;right:26px;bottom:26px;display:flex;align-items:center;gap:12px;padding:13px 18px;border:1px solid var(--line);border-radius:100px;background:rgba(10,10,12,.6);backdrop-filter:blur(14px);font-family:var(--font-display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease),border-color .3s,background .3s}
+#sound-prompt{position:fixed;z-index:1100;right:26px;bottom:26px;display:flex;align-items:center;gap:12px;padding:13px 18px;border:1px solid var(--line);border-radius:100px;background:rgba(10,10,12,.6);backdrop-filter:blur(14px);font-family:var(--font-display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease),border-color .3s,background .3s}
 #sound-prompt.show{opacity:1;transform:none}
 #sound-prompt:hover{border-color:rgba(225,6,0,.6);background:rgba(20,8,8,.7)}
 .eq{display:flex;align-items:flex-end;gap:2px;height:14px}
@@ -255,17 +255,11 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
 
 <!-- ============ CINEMATIC INTRO ============ -->
 <div id="intro">
-  <video id="introLogo" muted playsinline preload="auto">
-    <source src="logo-intro.mp4" type="video/mp4" />
-  </video>
-  <video id="introFilm" muted playsinline preload="auto" poster="poster.jpg">
-    <source src="FOH3D_LV1_Web_Intro_RED_4K_muted-loop.mp4" type="video/mp4" />
-  </video>
+  <canvas id="intro-canvas"></canvas>
+  <img class="intro-fallback" src="logo-red.png" alt="FOH 3D Printing" />
   <div class="grain"></div>
   <div class="vignette"></div>
   <img class="intro-corner" src="FOH3D PRINTING LOGO.png" alt="" aria-hidden="true" />
-  <div class="intro-prog"></div>
-  <button class="intro-enter" aria-label="Enter experience">Enter</button>
   <div class="intro-ui">
     <button class="intro-skip" aria-label="Skip intro">Skip Intro</button>
   </div>
@@ -369,6 +363,7 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
 </div>
 
 <!-- ============ LIBRARIES ============ -->
+<script src="logo-points.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -419,11 +414,51 @@ const Sound = (()=>{
     drone.connect(f); o2.connect(f); f.connect(droneGain).connect(ctx.destination);
     drone.start(); o2.start();
   }
+  let noiseBuf=null;
+  function noise(){ if(!ctx) return null; if(!noiseBuf){ noiseBuf=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate); const d=noiseBuf.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; } const s=ctx.createBufferSource(); s.buffer=noiseBuf; s.loop=true; return s; }
   return {
     toggle(){ ensure(); on=!on; if(on){ startDrone(); blip(660,.12,'triangle',.07);} else if(droneGain){ droneGain.gain.linearRampToValueAtTime(0,ctx.currentTime+.4);} return on; },
     hover(){ blip(880,.05,'sine',.03); },
     click(){ blip(440,.1,'square',.05); },
     success(){ if(!on)return; blip(523,.1,'sine',.06); setTimeout(()=>blip(659,.1,'sine',.06),90); setTimeout(()=>blip(784,.18,'sine',.06),190); },
+    // ---- cinematic intro sounds ----
+    introBed(){
+      if(!on||!ctx) return {stop(){}};
+      const t=ctx.currentTime;
+      const o=ctx.createOscillator(),g=ctx.createGain(); o.type='sine'; o.frequency.value=42;
+      g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.07,t+1.6);
+      o.connect(g).connect(ctx.destination); o.start();
+      const n=noise(),nf=ctx.createBiquadFilter(),ng=ctx.createGain();
+      nf.type='bandpass'; nf.frequency.value=190; nf.Q.value=.7;
+      ng.gain.setValueAtTime(0,t); ng.gain.linearRampToValueAtTime(.022,t+1);
+      n.connect(nf).connect(ng).connect(ctx.destination); n.start();
+      return { stop(){ const e=ctx.currentTime; g.gain.linearRampToValueAtTime(0,e+.5); ng.gain.linearRampToValueAtTime(0,e+.5); try{o.stop(e+.6);n.stop(e+.6);}catch(x){} } };
+    },
+    servo(){
+      if(!on||!ctx) return;
+      const t=ctx.currentTime, o=ctx.createOscillator(),g=ctx.createGain(),f=ctx.createBiquadFilter();
+      f.type='lowpass'; f.frequency.value=2400; o.type='sawtooth';
+      o.frequency.setValueAtTime(320+Math.random()*180,t); o.frequency.exponentialRampToValueAtTime(170,t+.06);
+      g.gain.setValueAtTime(.0001,t); g.gain.linearRampToValueAtTime(.016,t+.005); g.gain.exponentialRampToValueAtTime(.0001,t+.07);
+      o.connect(f).connect(g).connect(ctx.destination); o.start(); o.stop(t+.08);
+    },
+    impact(){
+      if(!on||!ctx) return;
+      const t=ctx.currentTime, o=ctx.createOscillator(),g=ctx.createGain(); o.type='sine';
+      o.frequency.setValueAtTime(150,t); o.frequency.exponentialRampToValueAtTime(38,t+.7);
+      g.gain.setValueAtTime(.0001,t); g.gain.linearRampToValueAtTime(.17,t+.02); g.gain.exponentialRampToValueAtTime(.0001,t+1.1);
+      o.connect(g).connect(ctx.destination); o.start(); o.stop(t+1.2);
+      const n=noise(),nf=ctx.createBiquadFilter(),ng=ctx.createGain(); nf.type='lowpass'; nf.frequency.value=900;
+      ng.gain.setValueAtTime(.13,t); ng.gain.exponentialRampToValueAtTime(.0001,t+.5);
+      n.connect(nf).connect(ng).connect(ctx.destination); n.start(); n.stop(t+.55);
+    },
+    woosh(){
+      if(!on||!ctx) return;
+      const t=ctx.currentTime, n=noise(),f=ctx.createBiquadFilter(),g=ctx.createGain();
+      f.type='bandpass'; f.Q.value=1.2; f.frequency.setValueAtTime(300,t); f.frequency.exponentialRampToValueAtTime(3600,t+.8);
+      g.gain.setValueAtTime(.0001,t); g.gain.linearRampToValueAtTime(.05,t+.2); g.gain.exponentialRampToValueAtTime(.0001,t+.9);
+      n.connect(f).connect(g).connect(ctx.destination); n.start(); n.stop(t+.95);
+    },
     get on(){return on;}
   };
 })();
@@ -522,62 +557,167 @@ function initThree(){
 }
 
 /* =========================================================
-   CINEMATIC INTRO — logo build -> spectacular film -> reveal
+   CINEMATIC INTRO — a 3D printer builds the logo, then reveals
    ========================================================= */
 function runIntro(done){
   const intro=document.getElementById('intro');
-  const vLogo=document.getElementById('introLogo');
-  const vFilm=document.getElementById('introFilm');
-  const prog=intro.querySelector('.intro-prog');
   const ui=intro.querySelector('.intro-ui');
   const corner=intro.querySelector('.intro-corner');
-  const enterBtn=intro.querySelector('.intro-enter');
   const skipBtn=intro.querySelector('.intro-skip');
-  const LOGO_SHARE=.28; // portion of progress bar for phase 1
+  let finished=false, raf=0, renderer=null, bed=null;
 
-  let finished=false, safety=null;
   function finish(){
     if(finished) return; finished=true;
-    clearTimeout(safety);
-    try{ vLogo.pause(); vFilm.pause(); }catch(e){}
+    cancelAnimationFrame(raf);
+    if(bed) bed.stop();
+    try{ renderer && renderer.dispose && renderer.dispose(); }catch(e){}
     intro.classList.add('done');
-    setTimeout(done,950);
+    setTimeout(()=>{ window.dispatchEvent(new Event('foh-intro-done')); done(); },1000);
   }
   skipBtn.addEventListener('click',finish);
 
-  if(reduceMotion){ finish(); return; }
+  const PTS=window.FOH_LOGO_POINTS||[];
+  let webgl=true;
+  try{ const c=document.createElement('canvas'); webgl=!!(window.WebGLRenderingContext&&(c.getContext('webgl')||c.getContext('experimental-webgl'))); }catch(e){ webgl=false; }
 
-  const setProg=p=>{ prog.style.width=Math.min(p*100,100)+'%'; };
-
-  // Phase 2 — spectacular film
-  function playFilm(){
-    vLogo.classList.remove('active');
-    vFilm.classList.add('active');
-    const p=vFilm.play(); if(p&&p.catch) p.catch(()=>{});
+  // fallback: static premium logo flash
+  if(reduceMotion || !PTS.length || !webgl || typeof THREE==='undefined'){
+    intro.classList.add('fallback');
+    setTimeout(finish, reduceMotion?300:1600);
+    return;
   }
-  vFilm.addEventListener('timeupdate',()=>{
-    if(vFilm.duration) setProg(LOGO_SHARE+(vFilm.currentTime/vFilm.duration)*(1-LOGO_SHARE));
-  });
-  vFilm.addEventListener('ended',finish);
 
-  // Phase 1 — logo build
-  vLogo.addEventListener('timeupdate',()=>{
-    if(vLogo.duration) setProg((vLogo.currentTime/vLogo.duration)*LOGO_SHARE);
-  });
-  vLogo.addEventListener('ended',playFilm);
+  setTimeout(()=>{ ui.classList.add('show'); corner.classList.add('show'); },1200);
 
-  function startLogo(){
-    vLogo.classList.add('active');
-    const p=vLogo.play();
-    if(p&&p.catch) p.catch(()=>enterBtn.classList.add('show')); // autoplay blocked
+  // ---------- scene ----------
+  const canvas=document.getElementById('intro-canvas');
+  renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(innerWidth,innerHeight);
+  renderer.setClearColor(0x050505,1);
+  const scene=new THREE.Scene();
+  scene.fog=new THREE.FogExp2(0x050505,0.02);
+  const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,0.1,400);
+
+  scene.add(new THREE.AmbientLight(0x2a3550,0.55));
+  const key=new THREE.DirectionalLight(0xcfe0ff,0.6); key.position.set(7,13,9); scene.add(key);
+  const rim=new THREE.PointLight(0xE10600,0,90,2); rim.position.set(0,0,7); scene.add(rim);
+  const nozLight=new THREE.PointLight(0xff5a32,2.4,26,2); scene.add(nozLight);
+
+  const SCALE=7.2, N=PTS.length;
+  const pos=new Float32Array(N*3);
+  let minY=1e9;
+  for(let i=0;i<N;i++){ const x=PTS[i][0]*SCALE, y=PTS[i][1]*SCALE; pos[i*3]=x; pos[i*3+1]=y; pos[i*3+2]=(Math.random()-.5)*0.14; if(y<minY) minY=y; }
+  const floorY=minY-0.7;
+
+  const beadGeo=new THREE.SphereGeometry(0.085,6,5);
+  const beadMat=new THREE.MeshStandardMaterial({color:0x240302,emissive:0xE10600,emissiveIntensity:1.5,roughness:.32,metalness:.55});
+  const beads=new THREE.InstancedMesh(beadGeo,beadMat,N);
+  beads.instanceMatrix.setUsage(THREE.DynamicDrawUsage); beads.frustumCulled=false; scene.add(beads);
+  const reflMat=new THREE.MeshBasicMaterial({color:0xE10600,transparent:true,opacity:.13,blending:THREE.AdditiveBlending,depthWrite:false,depthTest:false});
+  const refl=new THREE.InstancedMesh(beadGeo,reflMat,N);
+  refl.instanceMatrix.setUsage(THREE.DynamicDrawUsage); refl.frustumCulled=false; scene.add(refl);
+
+  const dummy=new THREE.Object3D();
+  const hideM=new THREE.Matrix4().makeScale(0.0001,0.0001,0.0001).setPosition(0,-9999,0);
+  for(let i=0;i<N;i++){ beads.setMatrixAt(i,hideM); refl.setMatrixAt(i,hideM); }
+  beads.instanceMatrix.needsUpdate=true; refl.instanceMatrix.needsUpdate=true;
+
+  const plate=new THREE.Mesh(new THREE.PlaneGeometry(90,90),new THREE.MeshStandardMaterial({color:0x0a0a0d,roughness:.45,metalness:.75}));
+  plate.rotation.x=-Math.PI/2; plate.position.y=floorY-0.02; scene.add(plate);
+  const grid=new THREE.GridHelper(90,90,0x241218,0x121216); grid.position.y=floorY; scene.add(grid);
+
+  // nozzle
+  const nozzle=new THREE.Group();
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,2.4,22),new THREE.MeshStandardMaterial({color:0x0f0f12,roughness:.4,metalness:.85})); body.position.y=2.1; nozzle.add(body);
+  const cone=new THREE.Mesh(new THREE.ConeGeometry(.46,1.0,22),new THREE.MeshStandardMaterial({color:0x0b0b0d,roughness:.35,metalness:.9})); cone.position.y=0.55; cone.rotation.x=Math.PI; nozzle.add(cone);
+  const hot=new THREE.Mesh(new THREE.SphereGeometry(.13,12,12),new THREE.MeshBasicMaterial({color:0xff7a3c})); hot.position.y=0.05; nozzle.add(hot);
+  scene.add(nozzle);
+
+  function glowTex(){ const c=document.createElement('canvas'); c.width=c.height=64; const g=c.getContext('2d'); const r=g.createRadialGradient(32,32,0,32,32,32); r.addColorStop(0,'rgba(255,200,150,1)'); r.addColorStop(.3,'rgba(255,80,30,.75)'); r.addColorStop(1,'rgba(255,40,0,0)'); g.fillStyle=r; g.fillRect(0,0,64,64); return new THREE.CanvasTexture(c); }
+  const gtex=glowTex();
+  const tipGlow=new THREE.Sprite(new THREE.SpriteMaterial({map:gtex,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true})); tipGlow.scale.setScalar(2.0); scene.add(tipGlow);
+  const flash=new THREE.Sprite(new THREE.SpriteMaterial({map:gtex,color:0xE10600,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:0})); flash.scale.setScalar(48); flash.position.set(0,0,2); scene.add(flash);
+
+  // sparks
+  const SPK=140, spkPos=new Float32Array(SPK*3), spkVel=new Float32Array(SPK*3), spkLife=new Float32Array(SPK);
+  for(let i=0;i<SPK;i++){ spkPos[i*3+1]=-9999; }
+  const spkGeo=new THREE.BufferGeometry(); spkGeo.setAttribute('position',new THREE.BufferAttribute(spkPos,3));
+  const sparks=new THREE.Points(spkGeo,new THREE.PointsMaterial({color:0xff8a4c,size:0.13,transparent:true,opacity:.95,blending:THREE.AdditiveBlending,depthWrite:false})); sparks.frustumCulled=false; scene.add(sparks);
+  let spkPtr=0;
+  function emitSpark(x,y,z){ const i=(spkPtr++)%SPK; spkPos[i*3]=x; spkPos[i*3+1]=y; spkPos[i*3+2]=z; spkVel[i*3]=(Math.random()-.5)*7; spkVel[i*3+1]=Math.random()*7+2.5; spkVel[i*3+2]=(Math.random()-.5)*7; spkLife[i]=0.45+Math.random()*0.4; }
+
+  // ambient motes
+  const M=300, mp=new Float32Array(M*3); for(let i=0;i<M*3;i++) mp[i]=(Math.random()-.5)*48;
+  const mGeo=new THREE.BufferGeometry(); mGeo.setAttribute('position',new THREE.BufferAttribute(mp,3));
+  const motes=new THREE.Points(mGeo,new THREE.PointsMaterial({color:0x8b939f,size:0.05,transparent:true,opacity:.4,depthWrite:false})); scene.add(motes);
+
+  // filament strand
+  const strand=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(),new THREE.Vector3()]),new THREE.LineBasicMaterial({color:0xff5a32,transparent:true,opacity:.7})); scene.add(strand);
+
+  // ---------- state + GSAP timeline ----------
+  const st={prog:0,camx:-5.5,camy:-2.4,camz:9.5,tx:-5.5,ty:minY+1,tz:0,nozUp:0,rim:0,flash:0,sweep:0,tip:1};
+  const PRINT=5.4;
+  const tl=gsap.timeline({onComplete:finish});
+  tl.to(st,{prog:1,duration:PRINT,ease:'power1.inOut'},0)
+    .to(st,{camx:6,camy:1.6,camz:12,duration:PRINT,ease:'sine.inOut'},0)
+    .to(st,{tx:0,ty:0,duration:PRINT,ease:'sine.inOut'},0)
+    .to(st,{nozUp:1,tip:0,duration:1.0,ease:'power2.in'},PRINT)
+    .to(st,{camx:0,camy:0.6,camz:24,tx:0,ty:0,tz:0,duration:1.7,ease:'power3.inOut'},PRINT-0.1)
+    .to(st,{rim:1,duration:1.0,ease:'power2.out'},PRINT+0.6)
+    .to(st,{flash:1,duration:0.16,ease:'power2.out'},PRINT+0.72)
+    .to(st,{flash:0,duration:0.8,ease:'power2.in'},PRINT+0.9)
+    .to(st,{sweep:1,duration:1.2,ease:'power2.inOut'},PRINT+0.7)
+    .to({},{duration:0.8});
+  gsap.delayedCall(PRINT+0.7,()=>{ if(Sound.on){ Sound.impact(); Sound.woosh(); } });
+
+  // ---------- render loop ----------
+  let placed=0, bedStarted=false, servoT=0;
+  const look=new THREE.Vector3();
+  const clock=new THREE.Clock();
+  function frame(){
+    const dt=Math.min(clock.getDelta(),0.05);
+    if(Sound.on && !bedStarted){ bed=Sound.introBed(); bedStarted=true; }
+
+    const target=Math.floor(st.prog*N);
+    while(placed<target){
+      const i=placed;
+      dummy.position.set(pos[i*3],pos[i*3+1],pos[i*3+2]); dummy.scale.setScalar(0.92+Math.random()*0.2); dummy.updateMatrix(); beads.setMatrixAt(i,dummy.matrix);
+      dummy.position.set(pos[i*3],2*floorY-pos[i*3+1],pos[i*3+2]); dummy.scale.setScalar(0.9); dummy.updateMatrix(); refl.setMatrixAt(i,dummy.matrix);
+      if(Math.random()<0.45) emitSpark(pos[i*3],pos[i*3+1],pos[i*3+2]);
+      placed++;
+    }
+    if(placed>0){ beads.instanceMatrix.needsUpdate=true; refl.instanceMatrix.needsUpdate=true; }
+
+    if(st.prog<1 && Sound.on){ servoT+=dt; if(servoT>0.09){ servoT=0; Sound.servo(); } }
+
+    const ci=Math.max(0,Math.min(N-1,target-1));
+    const bx=pos[ci*3]||0, by=(target>0?pos[ci*3+1]:floorY), bz=pos[ci*3+2]||0;
+    nozzle.position.set(bx, by+0.6 + st.nozUp*16, bz+0.2);
+    tipGlow.position.set(bx,by,bz); tipGlow.material.opacity=st.tip; tipGlow.scale.setScalar(1.7+Math.sin(performance.now()*0.02)*0.25);
+    nozLight.position.set(bx,by+0.5,bz+0.4); nozLight.intensity=2.4*st.tip;
+
+    const sp=strand.geometry.attributes.position;
+    sp.setXYZ(0,bx,nozzle.position.y-0.5,bz); sp.setXYZ(1,bx,by,bz); sp.needsUpdate=true;
+    strand.material.opacity=0.7*st.tip;
+
+    for(let i=0;i<SPK;i++){ if(spkLife[i]>0){ spkLife[i]-=dt; spkVel[i*3+1]-=15*dt; spkPos[i*3]+=spkVel[i*3]*dt; spkPos[i*3+1]+=spkVel[i*3+1]*dt; spkPos[i*3+2]+=spkVel[i*3+2]*dt; if(spkLife[i]<=0) spkPos[i*3+1]=-9999; } }
+    spkGeo.attributes.position.needsUpdate=true;
+    motes.rotation.y+=dt*0.04;
+
+    rim.intensity=st.rim*4.0; rim.position.x=THREE.MathUtils.lerp(-9,9,st.sweep);
+    beadMat.emissiveIntensity=1.5 + st.flash*4.5 + st.rim*0.8;
+    flash.material.opacity=st.flash*0.9;
+
+    camera.position.set(st.camx,st.camy,st.camz);
+    look.set(st.tx,st.ty,st.tz); camera.lookAt(look);
+
+    renderer.render(scene,camera);
+    raf=requestAnimationFrame(frame);
   }
-  enterBtn.addEventListener('click',()=>{ enterBtn.classList.remove('show'); startLogo(); });
+  frame();
 
-  // UI reveal + hard safety timeout
-  setTimeout(()=>{ ui.classList.add('show'); corner.classList.add('show'); },1400);
-  safety=setTimeout(finish,30000);
-
-  startLogo();
+  addEventListener('resize',()=>{ if(finished)return; camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth,innerHeight); });
 }
 
 /* =========================================================
@@ -707,11 +847,11 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
    ========================================================= */
 document.documentElement.classList.remove('no-js');
 window.addEventListener('load',()=>{
-  initThree();
+  soundBtn.classList.add('show'); // allow enabling sound during the intro
   runIntro(()=>{
+    initThree();
     initAnimations();
     initLenis();
-    setTimeout(()=>soundBtn.classList.add('show'),600);
   });
 });
 </script>
