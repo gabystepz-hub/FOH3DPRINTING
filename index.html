@@ -146,7 +146,7 @@ section{position:relative}
 /* ---------- Hero ---------- */
 .hero{height:100svh;min-height:640px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
 .hero__media{position:absolute;inset:0;z-index:0}
-.hero__media video{width:100%;height:100%;object-fit:cover;transform:scale(1.06)}
+.hero__media .bg{width:100%;height:100%;object-fit:cover;object-position:center 60%;transform:scale(1.08)}
 .hero__overlay{position:absolute;inset:0;background:
   radial-gradient(120% 90% at 50% 30%,rgba(225,6,0,.10),transparent 55%),
   linear-gradient(180deg,rgba(5,5,5,.55) 0%,rgba(5,5,5,.25) 35%,rgba(5,5,5,.55) 70%,rgba(5,5,5,.96) 100%)}
@@ -180,8 +180,15 @@ section{position:relative}
 /* ---------- Coming soon ---------- */
 .soon{padding:clamp(90px,14vh,180px) clamp(20px,5vw,80px) clamp(60px,8vh,100px);max-width:1340px;margin:0 auto}
 .soon__head{max-width:760px;margin-bottom:64px}
+.soon__head.center{max-width:1000px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;margin-bottom:0}
+.soon__head.center .tag{justify-content:center}
 .soon__head h2{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,4.6vw,60px);line-height:1.04;letter-spacing:-.02em}
 .soon__head p{margin-top:20px;color:var(--accent);font-weight:300;max-width:540px}
+.soon__head.center p{margin-left:auto;margin-right:auto;max-width:600px;font-size:clamp(15px,1.7vw,19px)}
+.soon__head.center .btn{margin-top:40px}
+.soon-title{display:flex;flex-direction:column;gap:8px;font-family:var(--font-display);font-weight:700;font-size:clamp(40px,7.4vw,108px);line-height:.96;letter-spacing:-.03em;margin-top:4px}
+.soon-title .l1{color:#fff}
+.soon-title .l2{background:linear-gradient(100deg,#ff6a5e 0%,var(--red) 46%,#7d0300 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 46px rgba(225,6,0,.5))}
 .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 @media (max-width:760px){.cards{grid-template-columns:1fr}}
 .card{position:relative;padding:38px 34px;min-height:260px;border:1px solid var(--line);border-radius:18px;background:var(--glass);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;transition:transform .5s var(--ease),border-color .5s var(--ease),background .5s var(--ease);transform-style:preserve-3d;will-change:transform}
@@ -281,9 +288,7 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
   <!-- ============ HERO ============ -->
   <section class="hero">
     <div class="hero__media">
-      <video autoplay muted loop playsinline poster="poster.jpg" preload="metadata">
-        <source src="FOH3D_LV1_Web_Intro_RED_4K_muted-loop.mp4" type="video/mp4" />
-      </video>
+      <img class="bg" src="hero-bg.jpg" alt="FOH 3D Printing custom 3D printed accessory mounted on a professional audio mixing console" />
     </div>
     <div class="hero__overlay"></div>
     <div class="hero__glow" id="heroGlow"></div>
@@ -310,38 +315,13 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
     </div>
   </div>
 
-  <!-- ============ COMING SOON ============ -->
+  <!-- ============ LAUNCHING SOON ============ -->
   <section class="soon">
-    <div class="soon__head">
-      <span class="tag reveal">Launching Soon</span>
-      <h2 class="reveal">FOH 3D Printing<br>Website Launching Soon</h2>
-      <p class="reveal">A complete platform for professional-grade, custom 3D printed audio accessories — engineered, configured, and built around the way you work.</p>
-    </div>
-    <div class="cards">
-      <article class="card reveal" data-tilt>
-        <span class="soon-pill">Preview</span>
-        <span class="num">01</span>
-        <div class="ico" data-ico="cube"></div>
-        <div><h3>Product Showcase</h3><p>Flagship 3D printed accessories built for FOH consoles, racks, and rigs — engineered to spec.</p></div>
-      </article>
-      <article class="card reveal" data-tilt>
-        <span class="soon-pill">Preview</span>
-        <span class="num">02</span>
-        <div class="ico" data-ico="store"></div>
-        <div><h3>Future Store</h3><p>Configure, customize, and order direct. A storefront designed around the working professional.</p></div>
-      </article>
-      <article class="card reveal" data-tilt>
-        <span class="soon-pill">Preview</span>
-        <span class="num">03</span>
-        <div class="ico" data-ico="layers"></div>
-        <div><h3>Portfolio</h3><p>A curated archive of custom builds, real-world deployments, and touring installations.</p></div>
-      </article>
-      <article class="card reveal" data-tilt>
-        <span class="soon-pill">Preview</span>
-        <span class="num">04</span>
-        <div class="ico" data-ico="gear"></div>
-        <div><h3>Engineering Solutions</h3><p>Bespoke design and rapid prototyping for unique on-stage and front-of-house challenges.</p></div>
-      </article>
+    <div class="soon__head center">
+      <span class="tag reveal">The Full Experience</span>
+      <h2 class="soon-title reveal"><span class="l1">FOH 3D Printing</span><span class="l2">Website Launching Soon</span></h2>
+      <p class="reveal">A new home for professional-grade, custom 3D printed audio accessories — engineered, configured, and built around the way you work.</p>
+      <a href="#waitlist" class="btn btn-primary reveal" data-hover>Join Early Access</a>
     </div>
   </section>
 
@@ -356,7 +336,7 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
         <div class="field reveal"><input type="text" name="name" placeholder="Your name" autocomplete="name" required /></div>
         <div class="field reveal"><input type="email" name="email" placeholder="Email address" autocomplete="email" required /></div>
         <button type="submit" class="btn btn-primary reveal" data-hover>Notify Me</button>
-        <p class="form-note reveal">No spam. We'll only reach out when it's worth your time.</p>
+        <p class="form-note reveal" id="formNote">No spam. We'll only reach out when it's worth your time.</p>
       </form>
       <div class="success" id="success">
         <svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring" cx="32" cy="32" r="27"/><path class="tick" d="M20 33 L29 42 L45 24"/></svg>
@@ -621,7 +601,7 @@ function initAnimations(){
       gsap.to('#heroGlow',{x:gx,y:gy,duration:1.2,ease:'power2.out'});
     });
     // Hero video parallax on scroll
-    gsap.to('.hero__media video',{yPercent:18,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+    gsap.to('.hero__media .bg',{yPercent:14,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
     gsap.to('.hero__content',{yPercent:-30,opacity:0,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
   }
 
@@ -659,8 +639,21 @@ function scrollY(){return window.scrollY||document.documentElement.scrollTop;}
 /* =========================================================
    WAITLIST FORM
    ========================================================= */
+// Submissions are emailed via FormSubmit. NOTE: the first real submission triggers a
+// one-time activation email to foh3dprinting@gmail.com — click the link in it once.
+const FORM_ENDPOINT='https://formsubmit.co/ajax/foh3dprinting@gmail.com';
 const form=document.getElementById('waitForm');
-form.addEventListener('submit',e=>{
+const formNote=document.getElementById('formNote');
+const submitBtn=form.querySelector('button[type=submit]');
+function showSuccess(){
+  gsap.to(form,{opacity:0,y:-12,duration:.4,onComplete:()=>{
+    form.style.display='none';
+    const s=document.getElementById('success'); s.classList.add('show');
+    gsap.fromTo(s,{opacity:0,y:16},{opacity:1,y:0,duration:.6,ease:'power3.out'});
+    Sound.success();
+  }});
+}
+form.addEventListener('submit',async e=>{
   e.preventDefault();
   const name=form.name, email=form.email;
   let ok=true;
@@ -668,13 +661,25 @@ form.addEventListener('submit',e=>{
   if(!name.value.trim()){name.parentElement.classList.add('invalid');ok=false;}
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)){email.parentElement.classList.add('invalid');ok=false;}
   if(!ok){gsap.fromTo(form,{x:-6},{x:0,duration:.4,ease:'elastic.out(1,.4)'});return;}
-  // (Demo) store locally — wire to your provider in production
-  gsap.to(form,{opacity:0,y:-12,duration:.4,onComplete:()=>{
-    form.style.display='none';
-    const s=document.getElementById('success'); s.classList.add('show');
-    gsap.fromTo(s,{opacity:0,y:16},{opacity:1,y:0,duration:.6,ease:'power3.out'});
-    Sound.success();
-  }});
+  submitBtn.textContent='Sending…'; submitBtn.disabled=true;
+  try{
+    const res=await fetch(FORM_ENDPOINT,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        name:name.value.trim(),
+        email:email.value.trim(),
+        _subject:'New Early Access signup — FOH 3D Printing',
+        _template:'table',
+        _captcha:false
+      })
+    });
+    if(!res.ok) throw new Error('request failed');
+    showSuccess();
+  }catch(err){
+    submitBtn.textContent='Notify Me'; submitBtn.disabled=false;
+    formNote.innerHTML='Could not send right now — email us at <a href="mailto:foh3dprinting@gmail.com" style="color:var(--red)">foh3dprinting@gmail.com</a>.';
+  }
 });
 
 /* =========================================================
