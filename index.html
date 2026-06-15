@@ -222,7 +222,7 @@ section{position:relative}
 
 /* product gallery — thumbnail navigation */
 .product__media{display:flex;flex-direction:column;gap:14px}
-.product__thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.product__thumbs{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
 .product__thumb{position:relative;padding:0;margin:0;border:1px solid var(--line);border-radius:11px;overflow:hidden;aspect-ratio:4/3;background:#0c0c0e;cursor:none;-webkit-appearance:none;appearance:none;transition:border-color .35s var(--ease),transform .35s var(--ease)}
 .product__thumb img{width:100%;height:100%;object-fit:cover;opacity:.5;transform:scale(1.02);transition:opacity .35s var(--ease),transform .6s var(--ease)}
 .product__thumb:hover{transform:translateY(-2px)}
@@ -398,6 +398,9 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
         <div class="product__thumbs" role="tablist" aria-label="LV1 Custom Mouse Pad photos">
           <button class="product__thumb is-active" type="button" data-hover data-full="lv1-gallery-1.jpg" aria-label="Mounted on Waves LV1 console" aria-selected="true">
             <img src="lv1-gallery-1-thumb.jpg" alt="Mouse pad clipped to the side of a Waves LV1 console" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-6.jpg" data-pos="center 80%" aria-label="Custom-branded pad on console" aria-selected="false">
+            <img src="lv1-gallery-6-thumb.jpg" alt="Custom Golden Hour Touring branded mouse pad mounted on the LV1 console" loading="lazy" />
           </button>
           <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-2.jpg" data-pos="100% center" aria-label="Top-down view beside the faders" aria-selected="false">
             <img src="lv1-gallery-2-thumb.jpg" alt="Top-down view of the mouse pad beside the LV1 faders" loading="lazy" />
