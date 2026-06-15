@@ -151,6 +151,9 @@ nav.scrolled{background:rgba(5,5,5,.7);backdrop-filter:blur(16px);border-bottom:
 section{position:relative}
 .tag{display:inline-flex;align-items:center;gap:11px;font-family:var(--font-mono);font-weight:500;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--red);margin-bottom:26px}
 .tag::before{content:"";width:26px;height:1px;background:var(--red);box-shadow:0 0 10px rgba(225,6,0,.7)}
+.tag--hero{justify-content:center;font-size:clamp(15px,1.6vw,20px);letter-spacing:.42em;gap:18px}
+.tag--hero::after{content:"";width:48px;height:1px;background:var(--red);box-shadow:0 0 10px rgba(225,6,0,.7)}
+.tag--hero::before{width:48px}
 
 /* ---------- Hero ---------- */
 .hero{height:100svh;min-height:640px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
@@ -320,7 +323,6 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
 <!-- ============ NAV ============ -->
 <nav>
   <a href="#top" aria-label="FOH 3D Printing home"><img class="nav-logo" src="FOH3D PRINTING LOGO.png" alt="FOH 3D Printing" /></a>
-  <a href="#waitlist" class="nav-cta" data-hover>Join Early Access</a>
 </nav>
 
 <div class="wrap" id="top">
@@ -333,15 +335,14 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
     <div class="hero__overlay"></div>
     <div class="hero__glow" id="heroGlow"></div>
     <div class="hero__content">
-      <span class="tag">FOH 3D Printing · Coming Soon</span>
+      <span class="tag tag--hero">FOH 3D Printing</span>
       <h1>
-        <span class="ln"><span>Built for the</span></span>
-        <span class="ln"><span><em>front of house.</em></span></span>
+        <span class="ln"><span>3D Printing for</span></span>
+        <span class="ln"><span><em>Audio Enthusiastics</em></span></span>
       </h1>
       <p class="sub">Custom 3D-printed gear for audio engineers and touring pros — engineered around the way you actually work. The first drop lands soon.</p>
       <div class="hero-cta">
-        <a href="#product" class="btn btn-primary" data-hover data-magnetic>See the first drop</a>
-        <a href="#waitlist" class="btn btn-ghost" data-hover>Join Early Access</a>
+        <a href="#product" class="btn btn-primary" data-hover data-magnetic>Products Lineup</a>
       </div>
     </div>
     <div class="scroll-hint"><div class="mouse"></div><span>Scroll</span></div>
