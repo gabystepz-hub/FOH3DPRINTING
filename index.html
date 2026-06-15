@@ -393,13 +393,13 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
           <img id="galleryMain" src="lv1-gallery-1.jpg" alt="FOH 3D Printing Waves LV1 Custom Mouse Pad mounted to the side of a Waves LV1 mixing console" />
           <iframe id="gallery360" class="product__360" title="Interactive 360° view of the LV1 Custom Mouse Pad" loading="lazy" allowfullscreen></iframe>
           <div class="ticks"><span></span><span></span><span></span><span></span></div>
-          <div class="product__badge"><i></i>Workshop prototype · v2</div>
+          <div class="product__badge"><i></i>Waves LV1 Mouse Pad</div>
         </div>
         <div class="product__thumbs" role="tablist" aria-label="LV1 Custom Mouse Pad photos">
           <button class="product__thumb is-active" type="button" data-hover data-full="lv1-gallery-1.jpg" aria-label="Mounted on Waves LV1 console" aria-selected="true">
             <img src="lv1-gallery-1-thumb.jpg" alt="Mouse pad clipped to the side of a Waves LV1 console" loading="lazy" />
           </button>
-          <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-2.jpg" aria-label="Top-down view beside the faders" aria-selected="false">
+          <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-2.jpg" data-pos="100% center" aria-label="Top-down view beside the faders" aria-selected="false">
             <img src="lv1-gallery-2-thumb.jpg" alt="Top-down view of the mouse pad beside the LV1 faders" loading="lazy" />
           </button>
           <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-3.jpg" aria-label="Angled studio view" aria-selected="false">
@@ -812,6 +812,7 @@ function initGallery(){
     frame&&frame.classList.remove('is-360');
     const full=btn.getAttribute('data-full');
     if(!full) return;
+    main.style.objectPosition=btn.getAttribute('data-pos')||'center';
     const pre=new Image();
     main.classList.add('is-swapping');
     pre.onload=()=>{main.src=full;main.classList.remove('is-swapping');};
