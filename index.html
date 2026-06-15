@@ -390,8 +390,8 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
     <div class="product__grid">
       <div class="product__media reveal">
         <div class="product__frame" data-parallax>
-          <img id="galleryMain" src="lv1-gallery-1.jpg" alt="FOH 3D Printing Waves LV1 Custom Mouse Pad mounted to the side of a Waves LV1 mixing console" />
-          <iframe id="gallery360" class="product__360" title="Interactive 360° view of the LV1 Custom Mouse Pad" loading="lazy" allowfullscreen></iframe>
+          <img class="gallery-main" src="lv1-gallery-1.jpg" alt="FOH 3D Printing Waves LV1 Custom Mouse Pad mounted to the side of a Waves LV1 mixing console" />
+          <iframe class="product__360" title="Interactive 360° view of the LV1 Custom Mouse Pad" loading="lazy" allowfullscreen></iframe>
           <div class="ticks"><span></span><span></span><span></span><span></span></div>
           <div class="product__badge"><i></i>Waves LV1 Mouse Pad</div>
         </div>
@@ -431,6 +431,58 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
           <div class="row"><span class="k">Custom order</span><span class="v">Matte black, custom brand name</span></div>
           <div class="row"><span class="k">Standard order</span><span class="v">Matte black + Neoprene Textile</span></div>
           <div class="row"><span class="k">Status</span><span class="v hl">15 Available</span></div>
+        </div>
+        <div class="product__cta reveal">
+          <a href="#waitlist" class="btn btn-primary" data-hover data-magnetic>Contact for Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCT TEASER — SECOND DROP ============ -->
+  <section class="product product--drop" id="product-2">
+    <div class="product__grid">
+      <div class="product__media reveal">
+        <div class="product__frame" data-parallax>
+          <img class="gallery-main" src="spl-gallery-1.jpg" alt="FOH 3D Printing OHR-1 Protective Case holding an OHR-1 sound pressure level meter, mounted on a stand above a mixing console" style="object-position:center 35%" />
+          <div class="ticks"><span></span><span></span><span></span><span></span></div>
+          <div class="product__badge"><i></i>OHR-1 Protective Case</div>
+        </div>
+        <div class="product__thumbs" role="tablist" aria-label="OHR-1 Protective Case photos">
+          <button class="product__thumb is-active" type="button" data-hover data-full="spl-gallery-1.jpg" data-pos="center 35%" aria-label="Mounted on a stand, in use" aria-selected="true">
+            <img src="spl-gallery-1-thumb.jpg" alt="OHR-1 meter in its case mounted on a stand above a console, reading 72" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-2.jpg" aria-label="Angled studio view with display" aria-selected="false">
+            <img src="spl-gallery-2-thumb.jpg" alt="Angled studio shot of the OHR-1 in its case, display reading 049" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-3.jpg" aria-label="Front view with display" aria-selected="false">
+            <img src="spl-gallery-3-thumb.jpg" alt="Front view of the OHR-1 in its case, display reading 048" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-4.jpg" aria-label="Empty case, angled interior" aria-selected="false">
+            <img src="spl-gallery-4-thumb.jpg" alt="Empty case showing the interior and display cutout" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-5.jpg" aria-label="Empty case, front interior" aria-selected="false">
+            <img src="spl-gallery-5-thumb.jpg" alt="Front of the empty case showing mounting holes and FOH3D logo" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-6.jpg" aria-label="Back with charging port" aria-selected="false">
+            <img src="spl-gallery-6-thumb.jpg" alt="Back of the case showing the USB-C charging port cutout" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-7.jpg" aria-label="Back, carbon fiber texture" aria-selected="false">
+            <img src="spl-gallery-7-thumb.jpg" alt="Back of the case showing the carbon fiber texture finish" loading="lazy" />
+          </button>
+        </div>
+      </div>
+      <div class="product__body">
+        <span class="tag tag--hero reveal">The Second Drop</span>
+        <h2 class="reveal">OHR-1 <em>Protective Case.</em></h2>
+        <p class="product__lede reveal">A purpose-built 3D printed enclosure designed specifically for the OHR-1 Sound Pressure Level Meter. Engineered to protect the unit during transport, setup, and daily use while keeping the display fully visible and the controls easy to reach. The integrated 1/4"-20 tripod insert mounts the OHR-1 securely to mic stands, tripods, camera accessories, and measurement rigs — making SPL monitoring flexible in any environment.</p>
+        <div class="spec-sheet reveal">
+          <div class="row"><span class="k">Model</span><span class="v">OHR-1 Case</span></div>
+          <div class="row"><span class="k">Fitment</span><span class="v hl">OHR-1</span></div>
+          <div class="row"><span class="k">Material</span><span class="v">Black / Carbon Fiber Filament</span></div>
+          <div class="row"><span class="k">Custom order</span><span class="v">Black / Carbon Fiber + Logo</span></div>
+          <div class="row"><span class="k">Standard order</span><span class="v">Black / Carbon Fiber Filament</span></div>
+          <div class="row"><span class="k">Status</span><span class="v hl">10 Available · Gray coming soon</span></div>
         </div>
         <div class="product__cta reveal">
           <a href="#waitlist" class="btn btn-primary" data-hover data-magnetic>Contact for Quote</a>
@@ -779,55 +831,57 @@ function initMagnetic(){
    ========================================================= */
 function initFrameSpotlight(){
   if(reduceMotion||innerWidth<=900) return;
-  const frame=document.querySelector('.product__frame');
-  if(!frame) return;
-  const glow=document.createElement('div');
-  glow.style.cssText='position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .4s var(--ease);background:radial-gradient(380px circle at var(--fx,50%) var(--fy,50%),rgba(225,6,0,.20),transparent 55%)';
-  frame.appendChild(glow);
-  frame.addEventListener('mousemove',e=>{
-    const r=frame.getBoundingClientRect();
-    glow.style.setProperty('--fx',((e.clientX-r.left)/r.width*100)+'%');
-    glow.style.setProperty('--fy',((e.clientY-r.top)/r.height*100)+'%');
-    glow.style.opacity='1';
+  document.querySelectorAll('.product__frame').forEach(frame=>{
+    const glow=document.createElement('div');
+    glow.style.cssText='position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity .4s var(--ease);background:radial-gradient(380px circle at var(--fx,50%) var(--fy,50%),rgba(225,6,0,.20),transparent 55%)';
+    frame.appendChild(glow);
+    frame.addEventListener('mousemove',e=>{
+      const r=frame.getBoundingClientRect();
+      glow.style.setProperty('--fx',((e.clientX-r.left)/r.width*100)+'%');
+      glow.style.setProperty('--fy',((e.clientY-r.top)/r.height*100)+'%');
+      glow.style.opacity='1';
+    });
+    frame.addEventListener('mouseleave',()=>glow.style.opacity='0');
   });
-  frame.addEventListener('mouseleave',()=>glow.style.opacity='0');
 }
 
 /* =========================================================
    PRODUCT GALLERY — thumbnail navigation
    ========================================================= */
 function initGallery(){
-  const frame=document.querySelector('.product__frame');
-  const main=document.getElementById('galleryMain');
-  const viewer=document.getElementById('gallery360');
-  const thumbs=Array.from(document.querySelectorAll('.product__thumb'));
-  if(!main||!thumbs.length) return;
-  function select(btn){
-    if(btn.classList.contains('is-active')) return;
-    thumbs.forEach(t=>{t.classList.remove('is-active');t.setAttribute('aria-selected','false');});
-    btn.classList.add('is-active');btn.setAttribute('aria-selected','true');
-    const v360=btn.getAttribute('data-360');
-    if(v360){
-      if(viewer&&!viewer.getAttribute('src')) viewer.setAttribute('src',v360); // lazy-load on first open
-      frame&&frame.classList.add('is-360');
-      return;
+  document.querySelectorAll('.product__media').forEach(media=>{
+    const frame=media.querySelector('.product__frame');
+    const main=media.querySelector('.gallery-main');
+    const viewer=media.querySelector('.product__360');
+    const thumbs=Array.from(media.querySelectorAll('.product__thumb'));
+    if(!main||!thumbs.length) return;
+    function select(btn){
+      if(btn.classList.contains('is-active')) return;
+      thumbs.forEach(t=>{t.classList.remove('is-active');t.setAttribute('aria-selected','false');});
+      btn.classList.add('is-active');btn.setAttribute('aria-selected','true');
+      const v360=btn.getAttribute('data-360');
+      if(v360){
+        if(viewer&&!viewer.getAttribute('src')) viewer.setAttribute('src',v360); // lazy-load on first open
+        frame&&frame.classList.add('is-360');
+        return;
+      }
+      frame&&frame.classList.remove('is-360');
+      const full=btn.getAttribute('data-full');
+      if(!full) return;
+      main.style.objectPosition=btn.getAttribute('data-pos')||'center';
+      const pre=new Image();
+      main.classList.add('is-swapping');
+      pre.onload=()=>{main.src=full;main.classList.remove('is-swapping');};
+      pre.src=full;
+      // fallback if cached/instant
+      setTimeout(()=>{if(main.classList.contains('is-swapping')){main.src=full;main.classList.remove('is-swapping');}},220);
     }
-    frame&&frame.classList.remove('is-360');
-    const full=btn.getAttribute('data-full');
-    if(!full) return;
-    main.style.objectPosition=btn.getAttribute('data-pos')||'center';
-    const pre=new Image();
-    main.classList.add('is-swapping');
-    pre.onload=()=>{main.src=full;main.classList.remove('is-swapping');};
-    pre.src=full;
-    // fallback if cached/instant
-    setTimeout(()=>{if(main.classList.contains('is-swapping')){main.src=full;main.classList.remove('is-swapping');}},220);
-  }
-  thumbs.forEach((btn,i)=>{
-    btn.addEventListener('click',()=>select(btn));
-    btn.addEventListener('keydown',e=>{
-      if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();const n=thumbs[(i+1)%thumbs.length];n.focus();select(n);}
-      if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();const p=thumbs[(i-1+thumbs.length)%thumbs.length];p.focus();select(p);}
+    thumbs.forEach((btn,i)=>{
+      btn.addEventListener('click',()=>select(btn));
+      btn.addEventListener('keydown',e=>{
+        if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();const n=thumbs[(i+1)%thumbs.length];n.focus();select(n);}
+        if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();const p=thumbs[(i-1+thumbs.length)%thumbs.length];p.focus();select(p);}
+      });
     });
   });
 }
