@@ -192,6 +192,9 @@ section{position:relative}
 
 /* ---------- Product teaser (First Drop — LV1 Mouse Pad) ---------- */
 .product{position:relative;padding:clamp(80px,12vh,150px) clamp(20px,5vw,80px);max-width:1340px;margin:0 auto}
+.product__head{text-align:center;margin-bottom:clamp(40px,6vh,72px)}
+.product__title{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,5.4vw,72px);line-height:1.02;letter-spacing:-.025em}
+.product__body .tag--hero{display:flex}
 .product__grid{display:grid;grid-template-columns:1.05fr .85fr;gap:clamp(36px,5vw,80px);align-items:center}
 @media (max-width:920px){.product__grid{grid-template-columns:1fr;gap:42px}}
 
@@ -358,6 +361,9 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
 
   <!-- ============ PRODUCT TEASER — FIRST DROP ============ -->
   <section class="product" id="product">
+    <div class="product__head reveal">
+      <h2 class="product__title">Product Lineup</h2>
+    </div>
     <div class="product__grid">
       <div class="product__frame reveal" data-parallax>
         <img src="lv1-mixerpad.jpg?v=2" alt="FOH 3D Printing Waves LV1 Custom Mouse Pad — a textured black 3D printed work surface mounted to the side of a Waves LV1 mixing console" />
@@ -365,7 +371,7 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
         <div class="product__badge"><i></i>Workshop prototype · v2</div>
       </div>
       <div class="product__body">
-        <span class="tag reveal">The First Drop</span>
+        <span class="tag tag--hero reveal">The First Drop</span>
         <h2 class="reveal">Waves LV1 <em>Custom Mouse Pad.</em></h2>
         <p class="product__lede reveal">A purpose-built work surface that clips to the side of your Waves LV1 — a solid, no-slip home for your mouse, right where the show happens. The first piece out of the FOH3D workshop.</p>
         <div class="spec-sheet reveal">
@@ -377,8 +383,7 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
           <div class="row"><span class="k">Status</span><span class="v hl">Revealing at launch</span></div>
         </div>
         <div class="product__cta reveal">
-          <a href="#waitlist" class="btn btn-primary" data-hover data-magnetic>Join the drop list</a>
-          <span class="product__note">Full reveal &amp; specs at launch</span>
+          <a href="#waitlist" class="btn btn-primary" data-hover data-magnetic>Contact for Quote</a>
         </div>
       </div>
     </div>
