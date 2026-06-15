@@ -235,6 +235,15 @@ section{position:relative}
 .product__thumb--360 .thumb-360::before{content:"";position:absolute;width:34px;height:34px;border:1.5px solid rgba(255,255,255,.6);border-top-color:transparent;border-bottom-color:transparent;border-radius:50%}
 .product__thumb--360:hover .thumb-360,.product__thumb--360.is-active .thumb-360{background:rgba(225,6,0,.32)}
 @media (max-width:920px){.product__thumb{border-radius:9px}.product__thumbs{gap:8px}}
+/* second drop — fit full product on light backdrop */
+.product__frame--fit{background:#f3f3f4}
+.product__frame--fit img{transform:none}
+.product__frame--fit:hover img{transform:none}
+.product__frame--fit::after{display:none}
+.product__frame--fit .ticks span{border-color:rgba(0,0,0,.28)}
+.product__frame--fit .gallery-main{object-fit:cover}
+#product-2 .product__thumbs{grid-template-columns:repeat(8,1fr)}
+#product-2 .product__thumb{background:#f3f3f4}
 
 /* spec column */
 .product__body h2{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,4.4vw,56px);line-height:1.02;letter-spacing:-.025em;margin-top:4px;text-wrap:balance}
@@ -443,8 +452,9 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
   <section class="product product--drop" id="product-2">
     <div class="product__grid">
       <div class="product__media reveal">
-        <div class="product__frame" data-parallax>
+        <div class="product__frame product__frame--fit">
           <img class="gallery-main" src="spl-gallery-1.jpg" alt="FOH 3D Printing OHR-1 Protective Case holding an OHR-1 sound pressure level meter, mounted on a stand above a mixing console" style="object-position:center 35%" />
+          <iframe class="product__360" title="Interactive 360° view of the OHR-1 Protective Case" loading="lazy" allowfullscreen></iframe>
           <div class="ticks"><span></span><span></span><span></span><span></span></div>
           <div class="product__badge"><i></i>OHR-1 Protective Case</div>
         </div>
@@ -469,6 +479,10 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
           </button>
           <button class="product__thumb" type="button" data-hover data-full="spl-gallery-7.jpg" aria-label="Back, carbon fiber texture" aria-selected="false">
             <img src="spl-gallery-7-thumb.jpg" alt="Back of the case showing the carbon fiber texture finish" loading="lazy" />
+          </button>
+          <button class="product__thumb product__thumb--360" type="button" data-hover data-360="foh3d_spl_meter_vf2_360.html" aria-label="Interactive 360-degree view" aria-selected="false">
+            <img src="spl-gallery-3-thumb.jpg" alt="Interactive 360-degree view of the OHR-1 Protective Case" loading="lazy" />
+            <span class="thumb-360">360°</span>
           </button>
         </div>
       </div>
