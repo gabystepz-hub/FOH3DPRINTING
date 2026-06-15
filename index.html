@@ -200,7 +200,14 @@ section{position:relative}
 
 /* framed product viewport — blueprint feel */
 .product__frame{position:relative;border-radius:20px;overflow:hidden;border:1px solid var(--line-2);background:linear-gradient(160deg,#141518,#0a0a0c);aspect-ratio:4/3;will-change:transform}
-.product__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);will-change:transform;transition:transform 1.4s var(--ease);filter:saturate(1.05) contrast(1.04)}
+.product__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);will-change:transform;transition:transform 1.4s var(--ease),opacity .3s var(--ease);filter:saturate(1.05) contrast(1.04)}
+.product__frame img.is-swapping{opacity:0}
+/* embedded 360° viewer */
+.product__360{position:absolute;inset:0;width:100%;height:100%;border:0;opacity:0;pointer-events:none;z-index:1;background:#f1f2f3;transition:opacity .3s var(--ease)}
+.product__frame.is-360 .product__360{opacity:1;pointer-events:auto;z-index:5}
+.product__frame.is-360 img{opacity:0}
+.product__frame.is-360::after{opacity:0}
+.product__frame.is-360 .ticks,.product__frame.is-360 .product__badge{opacity:0;transition:opacity .3s var(--ease)}
 .product__frame:hover img{transform:scale(1.16)}
 .product__frame::after{content:"";position:absolute;inset:0;background:radial-gradient(110% 80% at 70% 30%,transparent 40%,rgba(7,7,8,.55));pointer-events:none}
 .product__frame .ticks{position:absolute;inset:14px;pointer-events:none;z-index:3}
@@ -212,6 +219,22 @@ section{position:relative}
 .product__badge{position:absolute;left:18px;bottom:18px;z-index:4;display:inline-flex;align-items:center;gap:9px;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#fff;padding:9px 14px;border:1px solid var(--line-2);border-radius:100px;background:rgba(8,8,10,.55);backdrop-filter:blur(10px)}
 .product__badge i{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:pulse 1.8s var(--ease) infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+
+/* product gallery — thumbnail navigation */
+.product__media{display:flex;flex-direction:column;gap:14px}
+.product__thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.product__thumb{position:relative;padding:0;margin:0;border:1px solid var(--line);border-radius:11px;overflow:hidden;aspect-ratio:4/3;background:#0c0c0e;cursor:none;-webkit-appearance:none;appearance:none;transition:border-color .35s var(--ease),transform .35s var(--ease)}
+.product__thumb img{width:100%;height:100%;object-fit:cover;opacity:.5;transform:scale(1.02);transition:opacity .35s var(--ease),transform .6s var(--ease)}
+.product__thumb:hover{transform:translateY(-2px)}
+.product__thumb:hover img{opacity:.85}
+.product__thumb:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.product__thumb.is-active{border-color:var(--red)}
+.product__thumb.is-active img{opacity:1}
+.product__thumb.is-active::after{content:"";position:absolute;inset:0;border:1px solid var(--red);border-radius:11px;box-shadow:inset 0 0 0 1px rgba(225,6,0,.45),0 0 18px rgba(225,6,0,.22);pointer-events:none}
+.product__thumb--360 .thumb-360{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.12em;color:#fff;background:rgba(8,8,10,.42);text-shadow:0 1px 6px rgba(0,0,0,.6);transition:background .35s var(--ease)}
+.product__thumb--360 .thumb-360::before{content:"";position:absolute;width:34px;height:34px;border:1.5px solid rgba(255,255,255,.6);border-top-color:transparent;border-bottom-color:transparent;border-radius:50%}
+.product__thumb--360:hover .thumb-360,.product__thumb--360.is-active .thumb-360{background:rgba(225,6,0,.32)}
+@media (max-width:920px){.product__thumb{border-radius:9px}.product__thumbs{gap:8px}}
 
 /* spec column */
 .product__body h2{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,4.4vw,56px);line-height:1.02;letter-spacing:-.025em;margin-top:4px;text-wrap:balance}
@@ -365,10 +388,34 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
       <h2 class="product__title">Product Lineup</h2>
     </div>
     <div class="product__grid">
-      <div class="product__frame reveal" data-parallax>
-        <img src="lv1-mixerpad.jpg?v=2" alt="FOH 3D Printing Waves LV1 Custom Mouse Pad — a textured black 3D printed work surface mounted to the side of a Waves LV1 mixing console" />
-        <div class="ticks"><span></span><span></span><span></span><span></span></div>
-        <div class="product__badge"><i></i>Workshop prototype · v2</div>
+      <div class="product__media reveal">
+        <div class="product__frame" data-parallax>
+          <img id="galleryMain" src="lv1-gallery-1.jpg" alt="FOH 3D Printing Waves LV1 Custom Mouse Pad mounted to the side of a Waves LV1 mixing console" />
+          <iframe id="gallery360" class="product__360" title="Interactive 360° view of the LV1 Custom Mouse Pad" loading="lazy" allowfullscreen></iframe>
+          <div class="ticks"><span></span><span></span><span></span><span></span></div>
+          <div class="product__badge"><i></i>Workshop prototype · v2</div>
+        </div>
+        <div class="product__thumbs" role="tablist" aria-label="LV1 Custom Mouse Pad photos">
+          <button class="product__thumb is-active" type="button" data-hover data-full="lv1-gallery-1.jpg" aria-label="Mounted on Waves LV1 console" aria-selected="true">
+            <img src="lv1-gallery-1-thumb.jpg" alt="Mouse pad clipped to the side of a Waves LV1 console" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-2.jpg" aria-label="Top-down view beside the faders" aria-selected="false">
+            <img src="lv1-gallery-2-thumb.jpg" alt="Top-down view of the mouse pad beside the LV1 faders" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-3.jpg" aria-label="Angled studio view" aria-selected="false">
+            <img src="lv1-gallery-3-thumb.jpg" alt="Angled studio shot of the matte black mouse pad" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-4.jpg" aria-label="Front studio view" aria-selected="false">
+            <img src="lv1-gallery-4-thumb.jpg" alt="Front studio shot of the mouse pad with red FOH3D logo" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-5.jpg" aria-label="Dimensions" aria-selected="false">
+            <img src="lv1-gallery-5-thumb.jpg" alt="Dimensioned drawing — 125mm by 145mm" loading="lazy" />
+          </button>
+          <button class="product__thumb product__thumb--360" type="button" data-hover data-360="foh3d_mouse_pad_vf2_360.html" aria-label="Interactive 360-degree view" aria-selected="false">
+            <img src="lv1-gallery-3-thumb.jpg" alt="Interactive 360-degree view of the mouse pad" loading="lazy" />
+            <span class="thumb-360">360°</span>
+          </button>
+        </div>
       </div>
       <div class="product__body">
         <span class="tag tag--hero reveal">The First Drop</span>
@@ -742,6 +789,45 @@ function initFrameSpotlight(){
   });
   frame.addEventListener('mouseleave',()=>glow.style.opacity='0');
 }
+
+/* =========================================================
+   PRODUCT GALLERY — thumbnail navigation
+   ========================================================= */
+function initGallery(){
+  const frame=document.querySelector('.product__frame');
+  const main=document.getElementById('galleryMain');
+  const viewer=document.getElementById('gallery360');
+  const thumbs=Array.from(document.querySelectorAll('.product__thumb'));
+  if(!main||!thumbs.length) return;
+  function select(btn){
+    if(btn.classList.contains('is-active')) return;
+    thumbs.forEach(t=>{t.classList.remove('is-active');t.setAttribute('aria-selected','false');});
+    btn.classList.add('is-active');btn.setAttribute('aria-selected','true');
+    const v360=btn.getAttribute('data-360');
+    if(v360){
+      if(viewer&&!viewer.getAttribute('src')) viewer.setAttribute('src',v360); // lazy-load on first open
+      frame&&frame.classList.add('is-360');
+      return;
+    }
+    frame&&frame.classList.remove('is-360');
+    const full=btn.getAttribute('data-full');
+    if(!full) return;
+    const pre=new Image();
+    main.classList.add('is-swapping');
+    pre.onload=()=>{main.src=full;main.classList.remove('is-swapping');};
+    pre.src=full;
+    // fallback if cached/instant
+    setTimeout(()=>{if(main.classList.contains('is-swapping')){main.src=full;main.classList.remove('is-swapping');}},220);
+  }
+  thumbs.forEach((btn,i)=>{
+    btn.addEventListener('click',()=>select(btn));
+    btn.addEventListener('keydown',e=>{
+      if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();const n=thumbs[(i+1)%thumbs.length];n.focus();select(n);}
+      if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();const p=thumbs[(i-1+thumbs.length)%thumbs.length];p.focus();select(p);}
+    });
+  });
+}
+initGallery();
 
 /* =========================================================
    CARD 3D TILT + glow tracking
