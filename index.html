@@ -48,6 +48,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&display=swap" rel="stylesheet" />
 
 <style>
 /* ============================================================
@@ -74,6 +75,7 @@
   --font-display:'Space Grotesk',system-ui,sans-serif;
   --font-body:'Inter',system-ui,sans-serif;
   --font-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --font-impact:'Clash Display','Space Grotesk',system-ui,sans-serif;
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -265,11 +267,12 @@ section{position:relative}
 .soon__head{max-width:760px;margin-bottom:64px}
 .soon__head.center{max-width:1000px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;margin-bottom:0}
 .soon__head.center .tag{justify-content:center}
+.soon__head.center .tag::after{content:"";width:26px;height:1px;background:var(--red);box-shadow:0 0 10px rgba(225,6,0,.7)}
 .soon__head h2{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,4.6vw,60px);line-height:1.04;letter-spacing:-.02em}
 .soon__head p{margin-top:20px;color:var(--accent);font-weight:300;max-width:540px}
 .soon__head.center p{margin-left:auto;margin-right:auto;max-width:600px;font-size:clamp(15px,1.7vw,19px)}
 .soon__head.center .btn{margin-top:40px}
-.soon-title{display:flex;flex-direction:column;gap:8px;font-family:var(--font-display);font-weight:700;font-size:clamp(40px,7.4vw,108px);line-height:.96;letter-spacing:-.03em;margin-top:4px}
+.soon-title{display:flex;flex-direction:column;gap:6px;font-family:var(--font-impact);font-weight:700;font-size:clamp(54px,10vw,156px);line-height:.92;letter-spacing:-.035em;margin-top:10px;text-transform:uppercase}
 .soon-title .l1{color:#fff}
 .soon-title .l2{background:linear-gradient(100deg,#ff6a5e 0%,var(--red) 46%,#7d0300 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 46px rgba(225,6,0,.5))}
 .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
@@ -555,10 +558,10 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
   <!-- ============ LAUNCHING SOON ============ -->
   <section class="soon">
     <div class="soon__head center">
-      <span class="tag reveal">The Full Experience</span>
-      <h2 class="soon-title reveal"><span class="l1">FOH 3D Printing</span><span class="l2">Website Launching Soon</span></h2>
-      <p class="reveal">A new home for professional-grade, custom 3D printed audio accessories — engineered, configured, and built around the way you work.</p>
-      <a href="#waitlist" class="btn btn-primary reveal" data-hover>Join Early Access</a>
+      <span class="tag reveal">Join The Community</span>
+      <h2 class="soon-title reveal"><span class="l1">Show Us</span><span class="l2">Your Setup</span></h2>
+      <p class="reveal">Follow <strong>@foh3dprinting</strong> on Instagram for new drops and behind-the-build details — then tag us in your rig and we'll feature your setup with our gear.</p>
+      <a href="https://instagram.com/foh3dprinting" target="_blank" rel="noopener" class="btn btn-primary reveal" data-hover data-magnetic><span class="btn-ico" data-ico="instagram" aria-hidden="true"></span>Follow @foh3dprinting</a>
     </div>
   </section>
 
