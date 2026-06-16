@@ -244,6 +244,9 @@ section{position:relative}
 .product__frame--fit .gallery-main{object-fit:cover}
 #product-2 .product__thumbs{grid-template-columns:repeat(5,1fr)}
 #product-2 .product__thumb{background:#f3f3f4}
+/* third drop — adapter shots on pure-white backdrop */
+#product-3 .product__frame--fit{background:#fff}
+#product-3 .product__thumb{background:#fff}
 
 /* spec column */
 .product__body h2{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,4.4vw,56px);line-height:1.02;letter-spacing:-.025em;margin-top:4px;text-wrap:balance}
@@ -486,6 +489,58 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
           <div class="row"><span class="k">Standard order</span><span class="v">Black / Carbon Fiber Filament</span></div>
           <div class="row"><span class="k">Status</span><span class="v hl">10 Available · Gray coming soon</span></div>
           <div class="row"><span class="k">Note</span><span class="v">OHR-1 SPL Meter not included</span></div>
+        </div>
+        <div class="product__cta reveal">
+          <a href="#waitlist" class="btn btn-primary" data-hover data-magnetic>Contact for Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCT TEASER — THIRD DROP ============ -->
+  <section class="product product--drop" id="product-3">
+    <div class="product__grid">
+      <div class="product__media reveal">
+        <div class="product__frame product__frame--fit">
+          <img class="gallery-main" src="adapter-gallery-1.jpg" alt="FOH 3D Printing Waves LV1 Camera Adapter clamped to the edge of a Waves LV1 console screen, holding an articulating arm and 360 camera" />
+          <iframe class="product__360" title="Interactive 360° view of the Waves LV1 Camera Adapter" loading="lazy" allowfullscreen></iframe>
+          <div class="ticks"><span></span><span></span><span></span><span></span></div>
+          <div class="product__badge"><i></i>Waves LV1 Camera Adapter</div>
+        </div>
+        <div class="product__thumbs" role="tablist" aria-label="Waves LV1 Camera Adapter photos">
+          <button class="product__thumb is-active" type="button" data-hover data-full="adapter-gallery-1.jpg" aria-label="Adapter in use with a 360 camera" aria-selected="true">
+            <img src="adapter-gallery-1-thumb.jpg" alt="Camera adapter clamped to a console edge holding a 360 camera on an arm" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="adapter-gallery-2.jpg" aria-label="Product view with branding and tripod insert" aria-selected="false">
+            <img src="adapter-gallery-2-thumb.jpg" alt="Three-quarter view of the green camera adapter with FOH3D logo and tripod insert" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="adapter-gallery-3.jpg" aria-label="Top view of the 1/4-20 tripod insert" aria-selected="false">
+            <img src="adapter-gallery-3-thumb.jpg" alt="Top-down view of the integrated quarter-inch tripod insert" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="adapter-gallery-4.jpg" aria-label="Angled view showing clip and texture" aria-selected="false">
+            <img src="adapter-gallery-4-thumb.jpg" alt="Angled view of the adapter showing the console clip slot and printed texture" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="adapter-gallery-5.jpg" aria-label="Adapter in use holding a microphone" aria-selected="false">
+            <img src="adapter-gallery-5-thumb.jpg" alt="Camera adapter clamped to a console edge holding a microphone on an arm" loading="lazy" />
+          </button>
+          <button class="product__thumb product__thumb--360" type="button" data-hover data-360="foh3d_lv1_camera_bracket_v2_360.html" aria-label="Interactive 360-degree view" aria-selected="false">
+            <img src="adapter-gallery-2-thumb.jpg" alt="Interactive 360-degree view of the Waves LV1 Camera Adapter" loading="lazy" />
+            <span class="thumb-360">360°</span>
+          </button>
+        </div>
+      </div>
+      <div class="product__body">
+        <span class="tag tag--hero reveal">The Third Drop</span>
+        <h2 class="reveal">Waves LV1 <em>Camera Adapter.</em></h2>
+        <p class="product__lede reveal">A clip-on mount that turns the edge of your Waves LV1 into a rigging point. The integrated 1/4"-20 tripod insert takes any articulating arm, ball head, or clamp — so a camera, microphone, or accessory rides right above the console, exactly where you want the angle.</p>
+        <div class="spec-sheet reveal">
+          <div class="row"><span class="k">Model</span><span class="v">Waves LV1 Camera Adapter</span></div>
+          <div class="row"><span class="k">Fitment</span><span class="v hl">Waves LV1</span></div>
+          <div class="row"><span class="k">Mount</span><span class="v">Integrated 1/4"-20 tripod insert</span></div>
+          <div class="row"><span class="k">Material</span><span class="v">PLA+</span></div>
+          <div class="row"><span class="k">Custom order</span><span class="v">Carbon Fiber</span></div>
+          <div class="row"><span class="k">Status</span><span class="v hl">10 Available</span></div>
+          <div class="row"><span class="k">Note</span><span class="v">Tripod / arm not included</span></div>
         </div>
         <div class="product__cta reveal">
           <a href="#waitlist" class="btn btn-primary" data-hover data-magnetic>Contact for Quote</a>
