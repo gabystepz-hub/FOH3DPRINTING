@@ -300,6 +300,17 @@ form{margin-top:44px;display:flex;flex-direction:column;gap:14px;text-align:left
 .field input::placeholder{color:var(--muted)}
 .field input:focus{outline:none;border-color:rgba(225,6,0,.6);background:rgba(225,6,0,.04)}
 .field.invalid input{border-color:var(--red)}
+.product-interest{border:1px solid var(--line);border-radius:12px;padding:18px 20px 14px;margin:0;display:flex;flex-direction:column;gap:13px;background:var(--glass)}
+.product-interest legend{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);padding:0 0 4px}
+.check{display:flex;align-items:center;gap:12px;cursor:pointer;font-size:14.5px;color:var(--accent);user-select:none}
+.check input{position:absolute;opacity:0;width:0;height:0}
+.check .box{flex:0 0 auto;width:19px;height:19px;border:1px solid var(--line-2);border-radius:5px;background:rgba(0,0,0,.3);position:relative;transition:border-color .3s var(--ease),background .3s var(--ease)}
+.check .box::after{content:"";position:absolute;left:5.5px;top:2px;width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) scale(0);transition:transform .2s var(--ease)}
+.check input:checked~.box{background:var(--red);border-color:var(--red)}
+.check input:checked~.box::after{transform:rotate(45deg) scale(1)}
+.check:hover .box{border-color:rgba(225,6,0,.6)}
+.check input:focus-visible~.box{outline:2px solid var(--red);outline-offset:2px}
+.check--all{margin-top:3px;padding-top:13px;border-top:1px solid var(--line)}
 form .btn{margin-top:8px;width:100%;justify-content:center;border:none;cursor:none}
 .form-note{margin-top:16px;font-size:12px;color:var(--muted)}
 .success{display:none;flex-direction:column;align-items:center;gap:20px;padding:20px 0}
@@ -575,6 +586,13 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
       <form id="waitForm" novalidate>
         <div class="field reveal"><input type="text" name="name" placeholder="Your name" autocomplete="name" required /></div>
         <div class="field reveal"><input type="email" name="email" placeholder="Email address" autocomplete="email" required /></div>
+        <fieldset class="product-interest reveal" id="productInterest">
+          <legend>Product Interested</legend>
+          <label class="check"><input type="checkbox" name="product" value="Waves LV1 Mouse Pad" /><span class="box"></span><span>Waves LV1 Mouse Pad</span></label>
+          <label class="check"><input type="checkbox" name="product" value="Waves LV1 Camera Adapter" /><span class="box"></span><span>Waves LV1 Camera Adapter</span></label>
+          <label class="check"><input type="checkbox" name="product" value="OHR-1 Protective Case" /><span class="box"></span><span>OHR-1 Protective Case</span></label>
+          <label class="check check--all"><input type="checkbox" name="productAll" value="All above" id="productAll" /><span class="box"></span><span>All of the above</span></label>
+        </fieldset>
         <button type="submit" class="btn btn-primary reveal" data-hover>Notify Me</button>
         <p class="form-note reveal" id="formNote">No spam. We'll only reach out when it's worth your time.</p>
       </form>
@@ -990,6 +1008,12 @@ function showSuccess(){
     Sound.success();
   }});
 }
+// "All of the above" syncs the three individual product checkboxes
+const productBoxes=[...form.querySelectorAll('input[name=product]')];
+const allBox=document.getElementById('productAll');
+allBox.addEventListener('change',()=>{productBoxes.forEach(b=>b.checked=allBox.checked);});
+productBoxes.forEach(b=>b.addEventListener('change',()=>{allBox.checked=productBoxes.every(x=>x.checked);}));
+
 form.addEventListener('submit',async e=>{
   e.preventDefault();
   const name=form.name, email=form.email;
@@ -998,6 +1022,8 @@ form.addEventListener('submit',async e=>{
   if(!name.value.trim()){name.parentElement.classList.add('invalid');ok=false;}
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)){email.parentElement.classList.add('invalid');ok=false;}
   if(!ok){gsap.fromTo(form,{x:-6},{x:0,duration:.4,ease:'elastic.out(1,.4)'});return;}
+  const selected=productBoxes.filter(b=>b.checked).map(b=>b.value);
+  const productsText=allBox.checked?'All above (Waves LV1 Mouse Pad, Waves LV1 Camera Adapter, OHR-1 Protective Case)':(selected.length?selected.join(', '):'None selected');
   submitBtn.textContent='Sending…'; submitBtn.disabled=true;
   try{
     const res=await fetch(FORM_ENDPOINT,{
@@ -1006,6 +1032,7 @@ form.addEventListener('submit',async e=>{
       body:JSON.stringify({
         name:name.value.trim(),
         email:email.value.trim(),
+        'Product Interested':productsText,
         _subject:'New Early Access signup — FOH 3D Printing',
         _template:'table',
         _captcha:false
