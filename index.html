@@ -243,7 +243,8 @@ section{position:relative}
 .product__frame--fit .ticks span{border-color:rgba(0,0,0,.28)}
 .product__frame--fit .gallery-main{object-fit:cover}
 #product-2 .product__thumbs{grid-template-columns:repeat(5,1fr)}
-#product-2 .product__thumb{background:#f3f3f4}
+#product-2 .product__frame--fit{background:#fff}
+#product-2 .product__thumb{background:#fff}
 /* third drop — adapter shots on pure-white backdrop */
 #product-3 .product__frame--fit{background:#fff}
 #product-3 .product__thumb{background:#fff}
@@ -453,23 +454,23 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
     <div class="product__grid">
       <div class="product__media reveal">
         <div class="product__frame product__frame--fit">
-          <img class="gallery-main" src="spl-gallery-1.jpg" alt="FOH 3D Printing OHR-1 Protective Case holding an OHR-1 sound pressure level meter, mounted on a stand above a mixing console" style="object-position:center 35%" />
+          <img class="gallery-main" src="spl-gallery-1.jpg" alt="FOH 3D Printing OHR-1 Protective Case — front interior showing the mounting holes and FOH3D branding" />
           <iframe class="product__360" title="Interactive 360° view of the OHR-1 Protective Case" loading="lazy" allowfullscreen></iframe>
           <div class="ticks"><span></span><span></span><span></span><span></span></div>
           <div class="product__badge"><i></i>OHR-1 Protective Case</div>
         </div>
         <div class="product__thumbs" role="tablist" aria-label="OHR-1 Protective Case photos">
-          <button class="product__thumb is-active" type="button" data-hover data-full="spl-gallery-1.jpg" data-pos="center 35%" aria-label="Mounted on a stand, in use" aria-selected="true">
-            <img src="spl-gallery-1-thumb.jpg" alt="OHR-1 meter in its case mounted on a stand above a console, reading 72" loading="lazy" />
+          <button class="product__thumb is-active" type="button" data-hover data-full="spl-gallery-1.jpg" aria-label="Empty case, front interior" aria-selected="true">
+            <img src="spl-gallery-1-thumb.jpg" alt="Front of the empty case showing mounting holes and FOH3D logo" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-2.jpg" aria-label="Back with charging port" aria-selected="false">
+            <img src="spl-gallery-2-thumb.jpg" alt="Back of the case showing the USB-C charging port cutout" loading="lazy" />
           </button>
           <button class="product__thumb" type="button" data-hover data-full="spl-gallery-3.jpg" aria-label="Front view with display" aria-selected="false">
             <img src="spl-gallery-3-thumb.jpg" alt="Front view of the OHR-1 in its case, display reading 048" loading="lazy" />
           </button>
-          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-5.jpg" aria-label="Empty case, front interior" aria-selected="false">
-            <img src="spl-gallery-5-thumb.jpg" alt="Front of the empty case showing mounting holes and FOH3D logo" loading="lazy" />
-          </button>
-          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-6.jpg" aria-label="Back with charging port" aria-selected="false">
-            <img src="spl-gallery-6-thumb.jpg" alt="Back of the case showing the USB-C charging port cutout" loading="lazy" />
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-4.jpg" aria-label="Mounted on a stand, in use" aria-selected="false">
+            <img src="spl-gallery-4-thumb.jpg" alt="OHR-1 meter in its case mounted on an arm above a console, reading 72" loading="lazy" />
           </button>
           <button class="product__thumb product__thumb--360" type="button" data-hover data-360="foh3d_spl_meter_vf2_360.html" aria-label="Interactive 360-degree view" aria-selected="false">
             <img src="spl-gallery-3-thumb.jpg" alt="Interactive 360-degree view of the OHR-1 Protective Case" loading="lazy" />
@@ -502,29 +503,29 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
     <div class="product__grid">
       <div class="product__media reveal">
         <div class="product__frame product__frame--fit">
-          <img class="gallery-main" src="adapter-gallery-1.jpg" alt="FOH 3D Printing Waves LV1 Camera Adapter clamped to the edge of a Waves LV1 console screen, holding an articulating arm and 360 camera" />
+          <img class="gallery-main" src="adapter-gallery-1.jpg" alt="FOH 3D Printing Waves LV1 Camera Adapter — three-quarter view of the green adapter with FOH3D logo and integrated tripod insert" />
           <iframe class="product__360" title="Interactive 360° view of the Waves LV1 Camera Adapter" loading="lazy" allowfullscreen></iframe>
           <div class="ticks"><span></span><span></span><span></span><span></span></div>
           <div class="product__badge"><i></i>Waves LV1 Camera Adapter</div>
         </div>
         <div class="product__thumbs" role="tablist" aria-label="Waves LV1 Camera Adapter photos">
-          <button class="product__thumb is-active" type="button" data-hover data-full="adapter-gallery-1.jpg" aria-label="Adapter in use with a 360 camera" aria-selected="true">
-            <img src="adapter-gallery-1-thumb.jpg" alt="Camera adapter clamped to a console edge holding a 360 camera on an arm" loading="lazy" />
+          <button class="product__thumb is-active" type="button" data-hover data-full="adapter-gallery-1.jpg" aria-label="Product view with branding and tripod insert" aria-selected="true">
+            <img src="adapter-gallery-1-thumb.jpg" alt="Three-quarter view of the green camera adapter with FOH3D logo and tripod insert" loading="lazy" />
           </button>
-          <button class="product__thumb" type="button" data-hover data-full="adapter-gallery-2.jpg" aria-label="Product view with branding and tripod insert" aria-selected="false">
-            <img src="adapter-gallery-2-thumb.jpg" alt="Three-quarter view of the green camera adapter with FOH3D logo and tripod insert" loading="lazy" />
+          <button class="product__thumb" type="button" data-hover data-full="adapter-gallery-2.jpg" aria-label="Top view of the 1/4-20 tripod insert" aria-selected="false">
+            <img src="adapter-gallery-2-thumb.jpg" alt="Top-down view of the integrated quarter-inch tripod insert" loading="lazy" />
           </button>
-          <button class="product__thumb" type="button" data-hover data-full="adapter-gallery-3.jpg" aria-label="Top view of the 1/4-20 tripod insert" aria-selected="false">
-            <img src="adapter-gallery-3-thumb.jpg" alt="Top-down view of the integrated quarter-inch tripod insert" loading="lazy" />
+          <button class="product__thumb" type="button" data-hover data-full="adapter-gallery-3.jpg" aria-label="Angled view showing clip and texture" aria-selected="false">
+            <img src="adapter-gallery-3-thumb.jpg" alt="Angled view of the adapter showing the console clip slot and printed texture" loading="lazy" />
           </button>
-          <button class="product__thumb" type="button" data-hover data-full="adapter-gallery-4.jpg" aria-label="Angled view showing clip and texture" aria-selected="false">
-            <img src="adapter-gallery-4-thumb.jpg" alt="Angled view of the adapter showing the console clip slot and printed texture" loading="lazy" />
+          <button class="product__thumb" type="button" data-hover data-full="adapter-gallery-4.jpg" aria-label="Adapter in use with a 360 camera" aria-selected="false">
+            <img src="adapter-gallery-4-thumb.jpg" alt="Camera adapter clamped to a console edge holding a 360 camera on an arm" loading="lazy" />
           </button>
           <button class="product__thumb" type="button" data-hover data-full="adapter-gallery-5.jpg" aria-label="Adapter in use holding a microphone" aria-selected="false">
             <img src="adapter-gallery-5-thumb.jpg" alt="Camera adapter clamped to a console edge holding a microphone on an arm" loading="lazy" />
           </button>
           <button class="product__thumb product__thumb--360" type="button" data-hover data-360="foh3d_lv1_camera_bracket_v2_360.html" aria-label="Interactive 360-degree view" aria-selected="false">
-            <img src="adapter-gallery-2-thumb.jpg" alt="Interactive 360-degree view of the Waves LV1 Camera Adapter" loading="lazy" />
+            <img src="adapter-gallery-1-thumb.jpg" alt="Interactive 360-degree view of the Waves LV1 Camera Adapter" loading="lazy" />
             <span class="thumb-360">360°</span>
           </button>
         </div>
