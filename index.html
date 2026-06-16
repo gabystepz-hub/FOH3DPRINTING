@@ -242,7 +242,6 @@ section{position:relative}
 .product__frame--fit::after{display:none}
 .product__frame--fit .ticks span{border-color:rgba(0,0,0,.28)}
 .product__frame--fit .gallery-main{object-fit:cover}
-#product-2 .product__thumbs{grid-template-columns:repeat(5,1fr)}
 #product-2 .product__frame--fit{background:#fff}
 #product-2 .product__thumb{background:#fff}
 /* third drop — adapter shots on pure-white backdrop */
@@ -454,55 +453,6 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
     <div class="product__grid">
       <div class="product__media reveal">
         <div class="product__frame product__frame--fit">
-          <img class="gallery-main" src="spl-gallery-1.jpg" alt="FOH 3D Printing OHR-1 Protective Case — front interior showing the mounting holes and FOH3D branding" />
-          <iframe class="product__360" title="Interactive 360° view of the OHR-1 Protective Case" loading="lazy" allowfullscreen></iframe>
-          <div class="ticks"><span></span><span></span><span></span><span></span></div>
-          <div class="product__badge"><i></i>OHR-1 Protective Case</div>
-        </div>
-        <div class="product__thumbs" role="tablist" aria-label="OHR-1 Protective Case photos">
-          <button class="product__thumb is-active" type="button" data-hover data-full="spl-gallery-1.jpg" aria-label="Empty case, front interior" aria-selected="true">
-            <img src="spl-gallery-1-thumb.jpg" alt="Front of the empty case showing mounting holes and FOH3D logo" loading="lazy" />
-          </button>
-          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-2.jpg" aria-label="Back with charging port" aria-selected="false">
-            <img src="spl-gallery-2-thumb.jpg" alt="Back of the case showing the USB-C charging port cutout" loading="lazy" />
-          </button>
-          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-3.jpg" aria-label="Front view with display" aria-selected="false">
-            <img src="spl-gallery-3-thumb.jpg" alt="Front view of the OHR-1 in its case, display reading 048" loading="lazy" />
-          </button>
-          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-4.jpg" aria-label="Mounted on a stand, in use" aria-selected="false">
-            <img src="spl-gallery-4-thumb.jpg" alt="OHR-1 meter in its case mounted on an arm above a console, reading 72" loading="lazy" />
-          </button>
-          <button class="product__thumb product__thumb--360" type="button" data-hover data-360="foh3d_spl_meter_vf2_360.html" aria-label="Interactive 360-degree view" aria-selected="false">
-            <img src="spl-gallery-3-thumb.jpg" alt="Interactive 360-degree view of the OHR-1 Protective Case" loading="lazy" />
-            <span class="thumb-360">360°</span>
-          </button>
-        </div>
-      </div>
-      <div class="product__body">
-        <span class="tag tag--hero reveal">The Second Drop</span>
-        <h2 class="reveal">OHR-1 <em>Protective Case.</em></h2>
-        <p class="product__lede reveal">A purpose-built 3D printed enclosure designed specifically for the OHR-1 Sound Pressure Level Meter. Engineered to protect the unit during transport, setup, and daily use while keeping the display fully visible and the controls easy to reach. The integrated 1/4"-20 tripod insert mounts the OHR-1 securely to mic stands, tripods, camera accessories, and measurement rigs — making SPL monitoring flexible in any environment.</p>
-        <div class="spec-sheet reveal">
-          <div class="row"><span class="k">Model</span><span class="v">OHR-1 Case</span></div>
-          <div class="row"><span class="k">Fitment</span><span class="v hl">OHR-1</span></div>
-          <div class="row"><span class="k">Material</span><span class="v">Black / Carbon Fiber Filament</span></div>
-          <div class="row"><span class="k">Custom order</span><span class="v">Black / Carbon Fiber + Logo</span></div>
-          <div class="row"><span class="k">Standard order</span><span class="v">Black / Carbon Fiber Filament</span></div>
-          <div class="row"><span class="k">Status</span><span class="v hl">10 Available · Gray coming soon</span></div>
-          <div class="row"><span class="k">Note</span><span class="v">OHR-1 SPL Meter not included</span></div>
-        </div>
-        <div class="product__cta reveal">
-          <a href="#waitlist" class="btn btn-primary" data-hover data-magnetic>Contact for Quote</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ PRODUCT TEASER — THIRD DROP ============ -->
-  <section class="product product--drop" id="product-3">
-    <div class="product__grid">
-      <div class="product__media reveal">
-        <div class="product__frame product__frame--fit">
           <img class="gallery-main" src="adapter-gallery-1.jpg" alt="FOH 3D Printing Waves LV1 Camera Adapter — three-quarter view of the green adapter with FOH3D logo and integrated tripod insert" />
           <iframe class="product__360" title="Interactive 360° view of the Waves LV1 Camera Adapter" loading="lazy" allowfullscreen></iframe>
           <div class="ticks"><span></span><span></span><span></span><span></span></div>
@@ -531,7 +481,7 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
         </div>
       </div>
       <div class="product__body">
-        <span class="tag tag--hero reveal">The Third Drop</span>
+        <span class="tag tag--hero reveal">The Second Drop</span>
         <h2 class="reveal">Waves LV1 <em>Camera Adapter.</em></h2>
         <p class="product__lede reveal">A clip-on mount that turns the edge of your Waves LV1 into a rigging point. The integrated 1/4"-20 tripod insert takes any articulating arm, ball head, or clamp — so a camera, microphone, or accessory rides right above the console, exactly where you want the angle.</p>
         <div class="spec-sheet reveal">
@@ -542,6 +492,58 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
           <div class="row"><span class="k">Custom order</span><span class="v">Carbon Fiber</span></div>
           <div class="row"><span class="k">Status</span><span class="v hl">10 Available</span></div>
           <div class="row"><span class="k">Note</span><span class="v">Tripod / arm not included</span></div>
+        </div>
+        <div class="product__cta reveal">
+          <a href="#waitlist" class="btn btn-primary" data-hover data-magnetic>Contact for Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCT TEASER — THIRD DROP ============ -->
+  <section class="product product--drop" id="product-3">
+    <div class="product__grid">
+      <div class="product__media reveal">
+        <div class="product__frame product__frame--fit">
+          <img class="gallery-main" src="spl-gallery-1.jpg" alt="FOH 3D Printing OHR-1 Protective Case — front interior showing the mounting holes and FOH3D branding" />
+          <iframe class="product__360" title="Interactive 360° view of the OHR-1 Protective Case" loading="lazy" allowfullscreen></iframe>
+          <div class="ticks"><span></span><span></span><span></span><span></span></div>
+          <div class="product__badge"><i></i>OHR-1 Protective Case</div>
+        </div>
+        <div class="product__thumbs" role="tablist" aria-label="OHR-1 Protective Case photos">
+          <button class="product__thumb is-active" type="button" data-hover data-full="spl-gallery-1.jpg" aria-label="Empty case, front interior" aria-selected="true">
+            <img src="spl-gallery-1-thumb.jpg" alt="Front of the empty case showing mounting holes and FOH3D logo" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-5.jpg" aria-label="Gray case variant, three-quarter view" aria-selected="false">
+            <img src="spl-gallery-5-thumb.jpg" alt="Gray version of the empty OHR-1 case shown at an angle, with mounting holes and cable slot" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-2.jpg" aria-label="Back with charging port" aria-selected="false">
+            <img src="spl-gallery-2-thumb.jpg" alt="Back of the case showing the USB-C charging port cutout" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-3.jpg" aria-label="Front view with display" aria-selected="false">
+            <img src="spl-gallery-3-thumb.jpg" alt="Front view of the OHR-1 in its case, display reading 048" loading="lazy" />
+          </button>
+          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-4.jpg" aria-label="Mounted on a stand, in use" aria-selected="false">
+            <img src="spl-gallery-4-thumb.jpg" alt="OHR-1 meter in its case mounted on an arm above a console, reading 72" loading="lazy" />
+          </button>
+          <button class="product__thumb product__thumb--360" type="button" data-hover data-360="foh3d_spl_meter_vf2_360.html" aria-label="Interactive 360-degree view" aria-selected="false">
+            <img src="spl-gallery-3-thumb.jpg" alt="Interactive 360-degree view of the OHR-1 Protective Case" loading="lazy" />
+            <span class="thumb-360">360°</span>
+          </button>
+        </div>
+      </div>
+      <div class="product__body">
+        <span class="tag tag--hero reveal">The Third Drop</span>
+        <h2 class="reveal">OHR-1 <em>Protective Case.</em></h2>
+        <p class="product__lede reveal">A purpose-built 3D printed enclosure designed specifically for the OHR-1 Sound Pressure Level Meter. Engineered to protect the unit during transport, setup, and daily use while keeping the display fully visible and the controls easy to reach. The integrated 1/4"-20 tripod insert mounts the OHR-1 securely to mic stands, tripods, camera accessories, and measurement rigs — making SPL monitoring flexible in any environment.</p>
+        <div class="spec-sheet reveal">
+          <div class="row"><span class="k">Model</span><span class="v">OHR-1 Case</span></div>
+          <div class="row"><span class="k">Fitment</span><span class="v hl">OHR-1</span></div>
+          <div class="row"><span class="k">Material</span><span class="v">Black / Carbon Fiber Filament</span></div>
+          <div class="row"><span class="k">Custom order</span><span class="v">Black / Carbon Fiber + Logo</span></div>
+          <div class="row"><span class="k">Standard order</span><span class="v">Black / Carbon Fiber Filament</span></div>
+          <div class="row"><span class="k">Status</span><span class="v hl">10 Available · Gray coming soon</span></div>
+          <div class="row"><span class="k">Note</span><span class="v">OHR-1 SPL Meter not included</span></div>
         </div>
         <div class="product__cta reveal">
           <a href="#waitlist" class="btn btn-primary" data-hover data-magnetic>Contact for Quote</a>
