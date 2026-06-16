@@ -222,7 +222,7 @@ section{position:relative}
 
 /* product gallery — thumbnail navigation */
 .product__media{display:flex;flex-direction:column;gap:14px}
-.product__thumbs{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.product__thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
 .product__thumb{position:relative;padding:0;margin:0;border:1px solid var(--line);border-radius:11px;overflow:hidden;aspect-ratio:4/3;background:#0c0c0e;cursor:none;-webkit-appearance:none;appearance:none;transition:border-color .35s var(--ease),transform .35s var(--ease)}
 .product__thumb img{width:100%;height:100%;object-fit:cover;opacity:.5;transform:scale(1.02);transition:opacity .35s var(--ease),transform .6s var(--ease)}
 .product__thumb:hover{transform:translateY(-2px)}
@@ -242,7 +242,7 @@ section{position:relative}
 .product__frame--fit::after{display:none}
 .product__frame--fit .ticks span{border-color:rgba(0,0,0,.28)}
 .product__frame--fit .gallery-main{object-fit:cover}
-#product-2 .product__thumbs{grid-template-columns:repeat(8,1fr)}
+#product-2 .product__thumbs{grid-template-columns:repeat(5,1fr)}
 #product-2 .product__thumb{background:#f3f3f4}
 
 /* spec column */
@@ -417,9 +417,6 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
           <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-3.jpg" aria-label="Angled studio view" aria-selected="false">
             <img src="lv1-gallery-3-thumb.jpg" alt="Angled studio shot of the matte black mouse pad" loading="lazy" />
           </button>
-          <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-4.jpg" aria-label="Front studio view" aria-selected="false">
-            <img src="lv1-gallery-4-thumb.jpg" alt="Front studio shot of the mouse pad with red FOH3D logo" loading="lazy" />
-          </button>
           <button class="product__thumb" type="button" data-hover data-full="lv1-gallery-5.jpg" aria-label="Dimensions" aria-selected="false">
             <img src="lv1-gallery-5-thumb.jpg" alt="Dimensioned drawing — 125mm by 145mm" loading="lazy" />
           </button>
@@ -462,23 +459,14 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
           <button class="product__thumb is-active" type="button" data-hover data-full="spl-gallery-1.jpg" data-pos="center 35%" aria-label="Mounted on a stand, in use" aria-selected="true">
             <img src="spl-gallery-1-thumb.jpg" alt="OHR-1 meter in its case mounted on a stand above a console, reading 72" loading="lazy" />
           </button>
-          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-2.jpg" aria-label="Angled studio view with display" aria-selected="false">
-            <img src="spl-gallery-2-thumb.jpg" alt="Angled studio shot of the OHR-1 in its case, display reading 049" loading="lazy" />
-          </button>
           <button class="product__thumb" type="button" data-hover data-full="spl-gallery-3.jpg" aria-label="Front view with display" aria-selected="false">
             <img src="spl-gallery-3-thumb.jpg" alt="Front view of the OHR-1 in its case, display reading 048" loading="lazy" />
-          </button>
-          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-4.jpg" aria-label="Empty case, angled interior" aria-selected="false">
-            <img src="spl-gallery-4-thumb.jpg" alt="Empty case showing the interior and display cutout" loading="lazy" />
           </button>
           <button class="product__thumb" type="button" data-hover data-full="spl-gallery-5.jpg" aria-label="Empty case, front interior" aria-selected="false">
             <img src="spl-gallery-5-thumb.jpg" alt="Front of the empty case showing mounting holes and FOH3D logo" loading="lazy" />
           </button>
           <button class="product__thumb" type="button" data-hover data-full="spl-gallery-6.jpg" aria-label="Back with charging port" aria-selected="false">
             <img src="spl-gallery-6-thumb.jpg" alt="Back of the case showing the USB-C charging port cutout" loading="lazy" />
-          </button>
-          <button class="product__thumb" type="button" data-hover data-full="spl-gallery-7.jpg" aria-label="Back, carbon fiber texture" aria-selected="false">
-            <img src="spl-gallery-7-thumb.jpg" alt="Back of the case showing the carbon fiber texture finish" loading="lazy" />
           </button>
           <button class="product__thumb product__thumb--360" type="button" data-hover data-360="foh3d_spl_meter_vf2_360.html" aria-label="Interactive 360-degree view" aria-selected="false">
             <img src="spl-gallery-3-thumb.jpg" alt="Interactive 360-degree view of the OHR-1 Protective Case" loading="lazy" />
