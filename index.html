@@ -355,8 +355,8 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
 
 <!-- ============ CINEMATIC INTRO ============ -->
 <div id="intro">
-  <video id="introLogo" muted playsinline preload="auto">
-    <source src="foh3d-new-intro.mp4" type="video/mp4" />
+  <video id="introLogo" playsinline preload="auto">
+    <source src="foh3d-intro-2.mp4" type="video/mp4" />
   </video>
   <div class="grain"></div>
   <div class="vignette"></div>
@@ -844,8 +844,24 @@ function runIntro(done){
   safety=setTimeout(finish,12000);
 
   vLogo.classList.add('active');
+  // Try to autoplay WITH sound. Browsers may block unmuted autoplay; if so,
+  // fall back to muted playback and surface the sound button so one click enables audio.
+  vLogo.muted=false; vLogo.volume=1;
   const p=vLogo.play();
-  if(p&&p.catch) p.catch(()=>setTimeout(finish,1400));
+  if(p&&p.catch){
+    p.catch(()=>{
+      vLogo.muted=true;
+      const p2=vLogo.play();
+      if(p2&&p2.catch) p2.catch(()=>setTimeout(finish,1400));
+      // reveal sound prompt; first click unmutes the running intro too
+      try{
+        soundBtn.classList.add('show');
+        const unmute=()=>{ vLogo.muted=false; vLogo.volume=1; };
+        soundBtn.addEventListener('click',unmute,{once:true});
+        document.addEventListener('pointerdown',unmute,{once:true});
+      }catch(e){}
+    });
+  }
 }
 
 /* =========================================================
