@@ -364,6 +364,7 @@ footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,90px) clamp(20px,
   <div class="intro-ui">
     <button class="intro-skip" aria-label="Skip intro">Skip Intro</button>
   </div>
+  <button class="intro-enter" aria-label="Enter experience with sound">&#9654;&nbsp;&nbsp;Enter Experience</button>
 </div>
 
 <!-- ============ SOUND PROMPT ============ -->
@@ -844,22 +845,30 @@ function runIntro(done){
   safety=setTimeout(finish,12000);
 
   vLogo.classList.add('active');
-  // Try to autoplay WITH sound. Browsers may block unmuted autoplay; if so,
-  // fall back to muted playback and surface the sound button so one click enables audio.
+  const enterBtn=intro.querySelector('.intro-enter');
+
+  // Start (or restart) the intro WITH sound after a user gesture.
+  function startWithSound(){
+    if(enterBtn) enterBtn.classList.remove('show');
+    vLogo.muted=false; vLogo.volume=1;
+    try{ vLogo.currentTime=0; }catch(e){}
+    clearTimeout(safety); safety=setTimeout(finish,12000);
+    vLogo.play();
+  }
+
+  // 1) Try automatic playback WITH sound (works on sites the browser already trusts).
   vLogo.muted=false; vLogo.volume=1;
   const p=vLogo.play();
   if(p&&p.catch){
     p.catch(()=>{
-      vLogo.muted=true;
-      const p2=vLogo.play();
-      if(p2&&p2.catch) p2.catch(()=>setTimeout(finish,1400));
-      // reveal sound prompt; first click unmutes the running intro too
-      try{
-        soundBtn.classList.add('show');
-        const unmute=()=>{ vLogo.muted=false; vLogo.volume=1; };
-        soundBtn.addEventListener('click',unmute,{once:true});
-        document.addEventListener('pointerdown',unmute,{once:true});
-      }catch(e){}
+      // 2) Browser blocked unmuted autoplay. Hold on the first frame and invite one tap.
+      try{ vLogo.pause(); vLogo.currentTime=0; }catch(e){}
+      clearTimeout(safety);                 // don't auto-dismiss while waiting for the tap
+      if(enterBtn) enterBtn.classList.add('show');
+      if(enterBtn) enterBtn.addEventListener('click',startWithSound,{once:true});
+      // any first interaction anywhere also starts it with sound
+      document.addEventListener('pointerdown',startWithSound,{once:true});
+      document.addEventListener('keydown',startWithSound,{once:true});
     });
   }
 }
